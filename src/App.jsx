@@ -34,6 +34,7 @@ const NAV_LINKS = [
   "Projects",
   "Contact",
 ];
+
 const PROJECTS = [
   {
     name: "Weather APP",
@@ -84,6 +85,7 @@ const PROJECTS = [
     href: "/"
   },
 ];
+
 const SKILL_GROUPS = [
   {
     title: "Frontend",
@@ -121,6 +123,7 @@ const SKILL_GROUPS = [
     glow: "group-hover:shadow-emerald-500/25",
   },
 ];
+
 const CONTACTS = [
   {
     icon: Phone,
