@@ -93,7 +93,7 @@ const SKILL_GROUPS = [
     glow: "group-hover:shadow-blue-500/25",
   },
   {
-    title: "Backend",
+    title: "Database",
     icon: Database,
     items: ["Supabase"],
     color: "from-purple-500 to-pink-400",
