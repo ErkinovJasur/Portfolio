@@ -41,7 +41,7 @@ export default function Contact() {
 
     // Telegramga xabarni tayyorlash va to'g'ridan-to'g'ri jo'natish (chat ochish)
     const text = `👋 Yangi xabar (Portfolio Saytdan):\n👤 Ism: ${formData.name}\n📧 Email: ${formData.email}\n💬 Xabar: ${formData.message}`;
-    const telegramUrl = `https://t.me/erkinov_jasur?text=${encodeURIComponent(text)}`;
+    const telegramUrl = `https://t.me/timurovccc?text=${encodeURIComponent(text)}`;
     
     window.open(telegramUrl, '_blank', 'noopener,noreferrer');
 
