@@ -1,0 +1,112 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "status": "Available for new projects",
+    "badge": "Frontend Developer · Mars IT School",
+    "greeting": "Hello, I'm",
+    "title_first": "Erkinov",
+    "title_last": "Jasur",
+    "role_prefix": "I am a ",
+    "roles": ["Frontend Developer", "React Specialist", "UI/UX Craftsman", "Modern Web Engineer"],
+    "description": "Building beautiful, lightning-fast, and modern web applications with React and Tailwind CSS. Turning ideas into premium, pixel-perfect digital experiences.",
+    "view_projects": "View Projects",
+    "contact_me": "Contact Me",
+    "code_title": "developer.config.js"
+  },
+  "about": {
+    "label": "ABOUT ME",
+    "title_part1": "Passionate about",
+    "title_part2": "creating the web",
+    "who_title": "Who I Am",
+    "who_desc": "I am a Frontend Developer dedicated to crafting high-performance, engaging, and accessible web experiences. Studying at Mars IT School while actively architecting production-ready applications, always prioritizing clean code, maintainability, and seamless user interaction.",
+    "stats": {
+      "tasks": "Tasks Completed",
+      "team": "Team Department",
+      "tech": "Technologies",
+      "projects": "Projects Built"
+    },
+    "skills_title": "Tools & Technologies",
+    "categories": {
+      "frontend": "Frontend Development",
+      "database": "Database & Backend",
+      "devops": "DevOps & Deployment",
+      "tools": "Tools & Environment",
+      "ai": "Artificial Intelligence (AI)"
+    },
+    "journey_title": "Learning Journey",
+    "journey_role": "Student · Frontend Development",
+    "journey_school": "Mars IT School",
+    "journey_desc": "Intensive training in cutting-edge web development, React architecture, complex state management, Tailwind CSS, and performant animations.",
+    "values_title": "Core Values",
+    "values": {
+      "clean": "Clean & Maintainable Code",
+      "clean_desc": "Writing modular, self-documenting code built for long-term scalability.",
+      "responsive": "100% Responsive Design",
+      "responsive_desc": "Flawless layout and visual harmony across mobiles, tablets, and 4K displays.",
+      "performance": "Speed & Optimization",
+      "performance_desc": "Instant load times, high Core Web Vitals, and silky smooth 60fps animations."
+    }
+  },
+  "projects": {
+    "label": "PROJECTS",
+    "title_part1": "Selected",
+    "title_part2": "Works",
+    "filter_all": "All",
+    "filter_web": "Web Apps",
+    "filter_react": "React",
+    "filter_tools": "Tools",
+    "live_demo": "Live Demo",
+    "source_code": "GitHub Source",
+    "items": {
+      "weather": {
+        "title": "Weather App",
+        "desc": "Real-time global weather tracking application with forecasts, interactive search, atmospheric metrics, and dynamic conditions."
+      },
+      "uniikost": {
+        "title": "Uniikost (Real Estate)",
+        "desc": "Modern real estate marketplace featuring property discovery, comprehensive filters, responsive cards, and detail views."
+      },
+      "currency": {
+        "title": "Currency Converter",
+        "desc": "High-accuracy live currency exchange calculator with real-time central bank conversion rates and multi-currency support."
+      },
+      "contact": {
+        "title": "Contact App (CRM)",
+        "desc": "Feature-packed client relationship manager for organizing, searching, categorizing, and managing contacts effortlessly."
+      },
+      "portfolio": {
+        "title": "Portfolio Site",
+        "desc": "Personal developer portfolio built with React 19, Tailwind CSS, Framer Motion, and interactive Canvas particle stars."
+      }
+    }
+  },
+  "contact": {
+    "title_part1": "Let's",
+    "title_part2": "Connect",
+    "subtitle": "Always open to discussing new projects, frontend engineering opportunities, or technology collaborations.",
+    "phone": "Phone Number",
+    "email": "Email Address",
+    "telegram": "Telegram Handle",
+    "linkedin": "LinkedIn Profile",
+    "github": "GitHub Repository",
+    "form_title": "Send a Message",
+    "form_name": "Your Name",
+    "form_name_placeholder": "Jasur...",
+    "form_email": "Your Email",
+    "form_email_placeholder": "jasur@example.com",
+    "form_message": "Your Message",
+    "form_message_placeholder": "Tell me about your project or opportunity...",
+    "form_submit": "Send Message",
+    "form_success": "Thank you! Your message has been sent successfully."
+  },
+  "footer": {
+    "copyright": "© 2026 Erkinov Jasur. All rights reserved.",
+    "built_with": "Engineered with React · Tailwind CSS · Framer Motion"
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "nav": {
+    "home": "Bosh sahifa",
+    "about": "Men haqimda",
+    "skills": "Ko'nikmalar",
+    "projects": "Loyihalar",
+    "contact": "Aloqa"
+  },
+  "hero": {
+    "status": "Yangi loyihalar uchun ochiq",
+    "badge": "Frontend Developer · Mars IT School",
+    "greeting": "Salom, men",
+    "title_first": "Erkinov",
+    "title_last": "Jasur",
+    "role_prefix": "Men — ",
+    "roles": ["Frontend Dasturchi", "React Mutaxassisi", "UI/UX Ishqibozi", "Zamonaviy Veb Muhandisi"],
+    "description": "React, Tailwind CSS va zamonaviy JavaScript yordamida yuqori sifatli, tezkor va ko'zni quvontiruvchi veb-ilovalarni yarataman. G'oyalarni premium raqamli tajribaga aylantiraman.",
+    "view_projects": "Loyihalarni ko'rish",
+    "contact_me": "Bog'lanish",
+    "code_title": "developer.config.js"
+  },
+  "about": {
+    "label": "MEN HAQIMDA",
+    "title_part1": "Veb olamini yaratishga",
+    "title_part2": "ishtiyoqmandman",
+    "who_title": "Men kimman?",
+    "who_desc": "Men zamonaviy Frontend ekotizimida foydalanuvchilarga qulay va tezkor interfeyslar yaratuvchi dasturchiman. Mars IT School'da intensiv tahsil olib, real loyihalarda toza kod, komponentlar arxitekturasi va responsive dizayn ko'nikmalarini mustahkamlab kelmoqdaman.",
+    "stats": {
+      "tasks": "Bajarilgan vazifalar",
+      "team": "Jamoaviy bo'lim",
+      "tech": "Texnologiyalar",
+      "projects": "Yaratilgan loyihalar"
+    },
+    "skills_title": "Asboblar va Texnologiyalar",
+    "categories": {
+      "frontend": "Frontend Dasturlash",
+      "database": "Ma'lumotlar bazasi",
+      "devops": "DevOps & Deploy",
+      "tools": "Asboblar & Muhit",
+      "ai": "Sun'iy Intellekt (AI)"
+    },
+    "journey_title": "O'rganish yo'li",
+    "journey_role": "Talaba · Frontend Dasturlash",
+    "journey_school": "Mars IT School",
+    "journey_desc": "Zamonaviy veb-texnologiyalar, React arxitekturasi, murakkab holatlarni boshqarish (State management), Tailwind CSS va animatsiyalarni chuqur o'rganish.",
+    "values_title": "Mening tamoyillarim",
+    "values": {
+      "clean": "Toza va tushunarli kod",
+      "clean_desc": "O'qilishi oson, modulli va kelajakda kengaytirilishi qulay bo'lgan kod yozish.",
+      "responsive": "100% Moslashuvchanlik",
+      "responsive_desc": "Smartfondan tortib 4K monitorlargacha mukammal ko'rinish va qulaylik.",
+      "performance": "Tezkorlik va Sifat",
+      "performance_desc": "Yuqori yuklanish tezligi, SEO va eng yaxshi foydalanuvchi tajribasi (UX)."
+    }
+  },
+  "projects": {
+    "label": "LOYIHALAR",
+    "title_part1": "Tanlangan",
+    "title_part2": "Ishlar",
+    "filter_all": "Barchasi",
+    "filter_web": "Veb Ilovalar",
+    "filter_react": "React",
+    "filter_tools": "Asboblar",
+    "live_demo": "Jonli ko'rish",
+    "source_code": "GitHub Kodi",
+    "items": {
+      "weather": {
+        "title": "Weather App (Ob-havo)",
+        "desc": "Dunyo shaharlari uchun real vaqt ob-havo ma'lumotlari, 5 kunlik prognoz va shamol tezligini ko'rsatuvchi interaktiv ilova."
+      },
+      "uniikost": {
+        "title": "Uniikost (Real Estate)",
+        "desc": "Ko'chmas mulk e'lonlari, narxlar bo'yicha saralash, qulay qidiruv va filtrga ega premium ko'chmas mulk platformasi."
+      },
+      "currency": {
+        "title": "Currency Converter",
+        "desc": "Markaziy banklar va jahon valyuta kurslari asosida real vaqt rejimida hisob-kitob qiluvchi tezkor konvertor."
+      },
+      "contact": {
+        "title": "Contact App (CRM)",
+        "desc": "Mijozlar kontaktlarini saqlash, qidirish, tahrirlash va guruhlarga ajratish uchun maxsus CRM boshqaruv tizimi."
+      },
+      "portfolio": {
+        "title": "Portfolio Site",
+        "desc": "React 19, Tailwind CSS, Framer Motion va Canvas yulduzlar animatsiyasiga ega shaxsiy portfolio veb-sayti."
+      }
+    }
+  },
+  "contact": {
+    "title_part1": "Keling,",
+    "title_part2": "Bog'lanamiz",
+    "subtitle": "Yangi loyihalar, hamkorlik, ish takliflari yoki shunchaki fikr almashish uchun doim ochiqman.",
+    "phone": "Telefon raqam",
+    "email": "Elektron pochta",
+    "telegram": "Telegram profil",
+    "linkedin": "LinkedIn tarmog'i",
+    "github": "GitHub ombori",
+    "form_title": "Xabar yuborish",
+    "form_name": "Ismingiz",
+    "form_name_placeholder": "Jasur...",
+    "form_email": "Email manzilingiz",
+    "form_email_placeholder": "jasur@example.com",
+    "form_message": "Xabaringiz",
+    "form_message_placeholder": "Loyiha yoki taklifingiz haqida yozing...",
+    "form_submit": "Xabarni yuborish",
+    "form_success": "Rahmat! Xabaringiz muvaffaqiyatli yuborildi."
+  },
+  "footer": {
+    "copyright": "© 2026 Erkinov Jasur. Barcha huquqlar himoyalangan.",
+    "built_with": "React · Tailwind CSS · Framer Motion yordamida yaratildi"
+  }
+}

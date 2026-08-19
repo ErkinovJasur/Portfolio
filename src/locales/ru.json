@@ -1,0 +1,112 @@
+{
+  "nav": {
+    "home": "Главная",
+    "about": "Обо мне",
+    "skills": "Навыки",
+    "projects": "Проекты",
+    "contact": "Контакты"
+  },
+  "hero": {
+    "status": "Открыт для новых предложений",
+    "badge": "Frontend Developer · Mars IT School",
+    "greeting": "Привет, я",
+    "title_first": "Erkinov",
+    "title_last": "Jasur",
+    "role_prefix": "Я — ",
+    "roles": ["Frontend Разработчик", "React Специалист", "UI/UX Инженер", "Современный Веб-Разработчик"],
+    "description": "Создаю высокопроизводительные, адаптивные и потрясающие веб-приложения на React и Tailwind CSS. Превращаю сложные идеи в премиальный цифровой опыт.",
+    "view_projects": "Смотреть проекты",
+    "contact_me": "Связаться",
+    "code_title": "developer.config.js"
+  },
+  "about": {
+    "label": "ОБО МНЕ",
+    "title_part1": "Увлечен созданием",
+    "title_part2": "веб-приложений",
+    "who_title": "Кто я?",
+    "who_desc": "Я Frontend-разработчик, стремящийся к созданию быстрых, удобных и эстетичных интерфейсов. Обучаюсь в Mars IT School, разрабатываю реальные проекты и придерживаюсь принципов чистого кода, модульной архитектуры и максимальной производительности.",
+    "stats": {
+      "tasks": "Выполненных задач",
+      "team": "Командный отдел",
+      "tech": "Технологий",
+      "projects": "Созданных проектов"
+    },
+    "skills_title": "Инструменты и Технологии",
+    "categories": {
+      "frontend": "Frontend Разработка",
+      "database": "Базы данных и Бэкенд",
+      "devops": "DevOps и Деплой",
+      "tools": "Инструменты и Среда",
+      "ai": "Искусственный интеллект (AI)"
+    },
+    "journey_title": "Путь обучения",
+    "journey_role": "Студент · Frontend разработка",
+    "journey_school": "Mars IT School",
+    "journey_desc": "Глубокое изучение современной веб-разработки, экосистемы JavaScript, React архитектуры, управления состоянием и адаптивных интерфейсов.",
+    "values_title": "Мои принципы",
+    "values": {
+      "clean": "Чистый и понятный код",
+      "clean_desc": "Модульный, легко поддерживаемый и масштабируемый код по лучшим практикам.",
+      "responsive": "100% Адаптивность",
+      "responsive_desc": "Идеальное отображение на смартфонах, планшетах и мониторах 4K.",
+      "performance": "Скорость и UX",
+      "performance_desc": "Мгновенная загрузка, оптимизация Core Web Vitals и плавная работа интерфейса."
+    }
+  },
+  "projects": {
+    "label": "ПРОЕКТЫ",
+    "title_part1": "Избранные",
+    "title_part2": "Работы",
+    "filter_all": "Все",
+    "filter_web": "Веб-приложения",
+    "filter_react": "React",
+    "filter_tools": "Инструменты",
+    "live_demo": "Демо",
+    "source_code": "Код на GitHub",
+    "items": {
+      "weather": {
+        "title": "Weather App (Погода)",
+        "desc": "Интерактивное приложение для отслеживания погоды в реальном времени с точными прогнозами для городов по всему миру."
+      },
+      "uniikost": {
+        "title": "Uniikost (Недвижимость)",
+        "desc": "Современная платформа недвижимости с каталогом объектов, расширенным поиском, фильтрацией и карточками."
+      },
+      "currency": {
+        "title": "Currency Converter",
+        "desc": "Быстрый и точный конвертер валют с актуальными курсами центральных банков в реальном времени."
+      },
+      "contact": {
+        "title": "Contact App (CRM)",
+        "desc": "Удобная CRM-система для управления контактами, структурирования клиентской базы и быстрого поиска."
+      },
+      "portfolio": {
+        "title": "Portfolio Site",
+        "desc": "Персональный сайт разработчика на React 19, Tailwind CSS, Framer Motion с анимацией звездного неба."
+      }
+    }
+  },
+  "contact": {
+    "title_part1": "Давайте",
+    "title_part2": "Свяжемся",
+    "subtitle": "Всегда открыт для новых предложений, совместных проектов и сотрудничества.",
+    "phone": "Телефон",
+    "email": "Электронная почта",
+    "telegram": "Telegram профиль",
+    "linkedin": "LinkedIn сеть",
+    "github": "GitHub репозиторий",
+    "form_title": "Написать сообщение",
+    "form_name": "Ваше имя",
+    "form_name_placeholder": "Жасур...",
+    "form_email": "Ваш Email",
+    "form_email_placeholder": "jasur@example.com",
+    "form_message": "Ваше сообщение",
+    "form_message_placeholder": "Расскажите о вашей идее или проекте...",
+    "form_submit": "Отправить сообщение",
+    "form_success": "Спасибо! Ваше сообщение успешно отправлено."
+  },
+  "footer": {
+    "copyright": "© 2026 Эркинов Жасур. Все права защищены.",
+    "built_with": "Разработано на React · Tailwind CSS · Framer Motion"
+  }
+}
