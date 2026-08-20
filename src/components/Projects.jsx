@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Sparkles, ArrowUpRight } from 'lucide-react';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { motion, AnimatePresence } from "framer-motion";
+import { ExternalLink, Sparkles, ArrowUpRight } from "lucide-react";
 
-function GithubIcon({ className = 'w-4 h-4' }) {
+function GithubIcon({ className = "w-4 h-4" }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
       <path
@@ -17,69 +17,85 @@ function GithubIcon({ className = 'w-4 h-4' }) {
 
 export default function Projects() {
   const { t } = useTranslation();
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [activeFilter, setActiveFilter] = useState("all");
 
   const projects = [
     {
-      id: 'weather',
-      category: 'web',
-      badge: '⚡ Real-time API',
-      title: t('projects.items.weather.title'),
-      desc: t('projects.items.weather.desc'),
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUkpuYj5wBCIKVGz7yfHA2byivg0uEt3IX7QxddEaSbtxY0fzWZRvY1Jk&s=10',
-      tags: ['React', 'OpenWeather API', 'Tailwind CSS', 'Lucide Icons'],
-      liveUrl: 'https://weatherappclaudegemini.netlify.app/',
-      githubUrl: 'https://github.com/ErkinovJasur/Weather-app',
+      id: "weather",
+      category: "web",
+      badge: "⚡ Real-time API",
+      title: t("projects.items.weather.title"),
+      desc: t("projects.items.weather.desc"),
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUkpuYj5wBCIKVGz7yfHA2byivg0uEt3IX7QxddEaSbtxY0fzWZRvY1Jk&s=10",
+      tags: ["React", "OpenWeather API", "Tailwind CSS", "Lucide Icons"],
+      liveUrl: "https://weatherappclaudegemini.netlify.app/",
+      githubUrl: "https://github.com/ErkinovJasur/Weather-app",
     },
     {
-      id: 'uninest',
-      category: 'react',
-      badge: '🔥 Featured Platform',
+      id: "uninest",
+      category: "react",
+      badge: "🔥 Featured Platform",
       title: "UniNest",
-      desc: t('projects.items.uniikost.desc'),
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV0P_7-zSRe2-OoTJScRNohlE8fl5mcDCXt-5gYky3ww&s=10',
-      tags: ['React', 'Tailwind CSS', 'Framer Motion', 'Responsive UI'],
-      liveUrl: 'https://uninestapp.netlify.app/',
-      githubUrl: '/',
+      desc: t("projects.items.uniikost.desc"),
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV0P_7-zSRe2-OoTJScRNohlE8fl5mcDCXt-5gYky3ww&s=10",
+      tags: ["React", "Tailwind CSS", "Framer Motion", "Responsive UI"],
+      liveUrl: "https://uninestapp.netlify.app/",
+      githubUrl: "/",
     },
     {
-      id: 'currency',
-      category: 'tools',
-      badge: '⚡ Live Rates',
-      title: t('projects.items.currency.title'),
-      desc: t('projects.items.currency.desc'),
-      image: '/projects/currency.svg',
-      tags: ['React', 'Exchange Rates API', 'JavaScript', 'Tailwind CSS'],
-      liveUrl: 'https://adorable-banoffee-efa0d9.netlify.app/',
-      githubUrl: 'https://github.com/ErkinovJasur/Currency-convertor',
+      id: "currency",
+      category: "tools",
+      badge: "⚡ Live Rates",
+      title: t("projects.items.currency.title"),
+      desc: t("projects.items.currency.desc"),
+      image: "/projects/currency.svg",
+      tags: ["React", "Exchange Rates API", "JavaScript", "Tailwind CSS"],
+      liveUrl: "https://adorable-banoffee-efa0d9.netlify.app/",
+      githubUrl: "https://github.com/ErkinovJasur/Currency-convertor",
     },
     {
-      id: 'contact',
-      category: 'web',
-      badge: '💼 CRM System',
-      title: t('projects.items.contact.title'),
-      desc: t('projects.items.contact.desc'),
-      image: '/projects/contact.svg',
-      tags: ['React', 'CRM System', 'Tailwind CSS', 'State Management'],
-      liveUrl: 'https://effulgent-bonbon-a52042.netlify.app/',
-      githubUrl: 'https://portfolio-jade-three-43.vercel.app/',
-    }
+      id: "contact",
+      category: "web",
+      badge: "💼 CRM System",
+      title: t("projects.items.contact.title"),
+      desc: t("projects.items.contact.desc"),
+      image: "/projects/contact.svg",
+      tags: ["React", "CRM System", "Tailwind CSS", "State Management"],
+      liveUrl: "https://portfolio-jade-three-43.vercel.app/",
+      githubUrl: "https://github.com/ErkinovJasur/Weather-app",
+    },
+    {
+      id: "Gravio",
+      category: "react",
+      badge: "🔥 Featured Platform",
+      title: "Gravio",
+      desc: "Gravio - bu dasturchilar va boshqa startUpchilar o'z loyihalarini bir biriga ulashadigan platforma",
+      image: "/projects/image.png",
+      tags: ["React", "Tailwind CSS", "Framer Motion", "Responsive UI"],
+      liveUrl: "https://gravioapp.vercel.app/",
+      githubUrl: "https://github.com/ErkinovJasur/Gravio",
+    },
   ];
 
   const filterTabs = [
-    { key: 'all', label: t('projects.filter_all') },
-    { key: 'react', label: t('projects.filter_react') },
-    { key: 'web', label: t('projects.filter_web') },
-    { key: 'tools', label: t('projects.filter_tools') },
+    { key: "all", label: t("projects.filter_all") },
+    { key: "react", label: t("projects.filter_react") },
+    { key: "web", label: t("projects.filter_web") },
+    { key: "tools", label: t("projects.filter_tools") },
   ];
 
   const filteredProjects =
-    activeFilter === 'all'
+    activeFilter === "all"
       ? projects
       : projects.filter((p) => p.category === activeFilter);
 
   return (
-    <section id="projects" className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <section
+      id="projects"
+      className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"
+    >
       {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -89,11 +105,11 @@ export default function Projects() {
         className="text-center mb-12"
       >
         <span className="inline-block px-3.5 py-1 rounded-full text-xs font-extrabold tracking-widest text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20 uppercase mb-3">
-          {t('projects.label')}
+          {t("projects.label")}
         </span>
         <h2 className="font-heading text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
-          {t('projects.title_part1')}{' '}
-          <span className="gradient-text">{t('projects.title_part2')}</span>
+          {t("projects.title_part1")}{" "}
+          <span className="gradient-text">{t("projects.title_part2")}</span>
         </h2>
 
         {/* Filter Tabs */}
@@ -104,8 +120,8 @@ export default function Projects() {
               onClick={() => setActiveFilter(tab.key)}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeFilter === tab.key
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md shadow-purple-600/30'
-                  : 'bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md shadow-purple-600/30"
+                  : "bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
               {tab.label}
@@ -115,7 +131,10 @@ export default function Projects() {
       </motion.div>
 
       {/* Projects Grid with Ultra-Modern Card Styling */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+      <motion.div
+        layout
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"
+      >
         <AnimatePresence>
           {filteredProjects.map((proj) => (
             <motion.div
@@ -185,7 +204,7 @@ export default function Projects() {
                   className="flex-1 btn-gradient py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer text-white"
                 >
                   <ExternalLink className="w-4 h-4 text-white" />
-                  <span className="text-white">{t('projects.live_demo')}</span>
+                  <span className="text-white">{t("projects.live_demo")}</span>
                 </a>
 
                 <a
@@ -196,7 +215,7 @@ export default function Projects() {
                   title="Source code"
                 >
                   <GithubIcon className="w-4 h-4" />
-                  <span>{t('projects.source_code')}</span>
+                  <span>{t("projects.source_code")}</span>
                 </a>
               </div>
             </motion.div>
