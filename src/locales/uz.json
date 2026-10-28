@@ -4,7 +4,8 @@
     "about": "Men haqimda",
     "skills": "Ko'nikmalar",
     "projects": "Loyihalar",
-    "contact": "Aloqa"
+    "contact": "Aloqa",
+    "services": "Xizmatlar"
   },
   "hero": {
     "status": "Yangi loyihalar uchun ochiq",
@@ -13,7 +14,12 @@
     "title_first": "Erkinov",
     "title_last": "Jasur",
     "role_prefix": "Men — ",
-    "roles": ["Frontend Dasturchi", "React Mutaxassisi", "UI/UX Ishqibozi", "Zamonaviy Veb Muhandisi"],
+    "roles": [
+      "Frontend Dasturchi",
+      "React Mutaxassisi",
+      "UI/UX Ishqibozi",
+      "Zamonaviy Veb Muhandisi"
+    ],
     "description": "React, Tailwind CSS va zamonaviy JavaScript yordamida yuqori sifatli, tezkor va ko'zni quvontiruvchi veb-ilovalarni yarataman. G'oyalarni premium raqamli tajribaga aylantiraman.",
     "view_projects": "Loyihalarni ko'rish",
     "contact_me": "Bog'lanish",
@@ -83,7 +89,17 @@
       "portfolio": {
         "title": "Portfolio Site",
         "desc": "React 19, Tailwind CSS, Framer Motion va Canvas yulduzlar animatsiyasiga ega shaxsiy portfolio veb-sayti."
-      }
+      },
+      "dachahub": {
+        "title": "DachaHub",
+        "desc": "O'zbekistondagi eng yaxshi dacha va dam olish maskanlarini topish, ko'rish va bron qilish uchun zamonaviy platforma."
+      },
+      "turarzone": {
+        "title": "TurarZone",
+        "desc": "Talabalar uchun uy-joy va arzon ijara variantlarini tezkor topishga yordam beruvchi qulay platforma."
+      },
+      "title": "TurarZone",
+      "desc": "Talabalar uchun uy-joy va arzon ijara variantlarini tezkor topishga yordam beruvchi qulay platforma."
     }
   },
   "contact": {
@@ -107,6 +123,152 @@
   },
   "footer": {
     "copyright": "© 2026 Erkinov Jasur. Barcha huquqlar himoyalangan.",
-    "built_with": "React · Tailwind CSS · Framer Motion yordamida yaratildi"
+    "built_with": "React · Tailwind CSS · Framer Motion yordamida yaratildi",
+    "quick_links": "Tezkor havolalar",
+    "contact": "Bog'lanish",
+    "location": "Toshkent, O'zbekiston",
+    "rights": "Barcha huquqlar himoyalangan.",
+    "made": "Yaratildi",
+    "with": "bilan"
+  },
+  "services": {
+    "label": "XIZMATLAR",
+    "title_part1": "Sayt tayyorlash",
+    "title_part2": "narxlari",
+    "subtitle": "Landing page, portfolio yoki biznes uchun mukammal va tezkor saytlar. Sifatli dizayn, animatsiyalar va to'liq responsive — hammasi bir joyda.",
+    "popular": "Eng mashhur",
+    "contact": "Loyihani boshlash",
+    "timeline": "Muddat",
+    "items": [
+      {
+        "name": "Landing Page",
+        "desc": "Mahsulot yoki xizmatni sotish uchun bir sahifali tezkor sayt.",
+        "price": "1 500 000",
+        "unit": "so'm",
+        "delivery": "3–5 kun",
+        "features": [
+          "1 sahifa + responsiv",
+          "Zamonaviy animatsiyalar",
+          "Aloqa formasi (Telegram)",
+          "Asosiy SEO sozlamalari",
+          "1 marta tuzatish"
+        ]
+      },
+      {
+        "name": "Portfolio sayt",
+        "desc": "Shaxsiy brendingiz uchun premium darajadagi portfolio.",
+        "price": "2 500 000",
+        "unit": "so'm",
+        "delivery": "5–7 kun",
+        "features": [
+          "4 tagacha bo'lim",
+          "Dark / Light rejim",
+          "Ko'p tilli tizim",
+          "Animatsiyalar va 3D effektlar",
+          "SEO + tezlik optimizatsiyasi"
+        ],
+        "popular": true
+      },
+      {
+        "name": "Biznes sayt",
+        "desc": "Kompaniya uchun ko'p sahifali professional veb-sayt.",
+        "price": "5 000 000",
+        "unit": "so'm",
+        "delivery": "10–14 kun",
+        "features": [
+          "6 tagacha sahifa",
+          "Admin panel / CMS",
+          "Ko'p tilli qo'llab-quvvatlash",
+          "Murakkab animatsiyalar",
+          "2 oy bepul yordam"
+        ]
+      },
+      {
+        "name": "Web ilova",
+        "desc": "Murakkab funksiyali custom web platforma va dashboard.",
+        "price": "9 000 000",
+        "unit": "so'mdan",
+        "delivery": "Kelishilgan",
+        "features": [
+          "Custom arxitektura",
+          "Auth va ma'lumotlar bazasi",
+          "API integratsiyalar",
+          "Admin dashboard",
+          "Uzoq muddatli support"
+        ]
+      },
+      {
+        "name": "Onlayn do'kon",
+        "desc": "Mahsulotlarni sotish uchun to'liq funksiyali e-commerce sayt.",
+        "price": "7 500 000",
+        "unit": "so'm",
+        "delivery": "14–20 kun",
+        "features": [
+          "Mahsulot katalogi",
+          "Savat va buyurtma",
+          "To'lov tizimi integratsiyasi",
+          "Admin panel",
+          "SEO optimizatsiya"
+        ]
+      },
+      {
+        "name": "Custom loyiha",
+        "desc": "Sizning g'oyangiz uchun individual web yechim.",
+        "price": "Kelishilgan",
+        "unit": "",
+        "delivery": "Loyihaga qarab",
+        "features": [
+          "To'liq custom dizayn",
+          "Cheksiz imkoniyatlar",
+          "API va integratsiyalar",
+          "Scalable arxitektura",
+          "Doimiy hamkorlik"
+        ]
+      }
+    ],
+    "addons_title": "Qo'shimcha xizmatlar",
+    "addons": [
+      {
+        "name": "Qo'shimcha sahifa",
+        "price": "500 000 so'm"
+      },
+      {
+        "name": "Kopira yt / matn yozish",
+        "price": "300 000 so'm"
+      },
+      {
+        "name": "Tezlik optimizatsiyasi",
+        "price": "400 000 so'm"
+      },
+      {
+        "name": "Oylik texnik support",
+        "price": "250 000 so'm / oy"
+      }
+    ],
+    "process_title": "Qanday ishlaymiz?",
+    "steps": [
+      {
+        "title": "Brief & reja",
+        "desc": "Maqsad, auditoriya va talablarni aniqlaymiz."
+      },
+      {
+        "title": "Dizayn",
+        "desc": "Figma da zamonaviy UI/UX prototip tayyorlaymiz."
+      },
+      {
+        "title": "Dasturlash",
+        "desc": "React va Tailwind bilan tezkor kod yozamiz."
+      },
+      {
+        "title": "Ishga tushirish",
+        "desc": "Test, optimizatsiya va deploy qilamiz."
+      }
+    ],
+    "note": "Aniq narx loyiha hajmi va talablariga qarab belgilanadi. Bepul maslahat uchun bog'laning.",
+    "select": "Tanlash",
+    "selected": "Tanlandi",
+    "selected_title": "Tanlangan paket",
+    "clear": "Bekor qilish",
+    "hint": "Sayt turini tanlang — narxi va muddatini ko'ring."
   }
 }

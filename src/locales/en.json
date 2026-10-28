@@ -4,7 +4,8 @@
     "about": "About",
     "skills": "Skills",
     "projects": "Projects",
-    "contact": "Contact"
+    "contact": "Contact",
+    "services": "Services"
   },
   "hero": {
     "status": "Available for new projects",
@@ -13,7 +14,12 @@
     "title_first": "Erkinov",
     "title_last": "Jasur",
     "role_prefix": "I am a ",
-    "roles": ["Frontend Developer", "React Specialist", "UI/UX Craftsman", "Modern Web Engineer"],
+    "roles": [
+      "Frontend Developer",
+      "React Specialist",
+      "UI/UX Craftsman",
+      "Modern Web Engineer"
+    ],
     "description": "Building beautiful, lightning-fast, and modern web applications with React and Tailwind CSS. Turning ideas into premium, pixel-perfect digital experiences.",
     "view_projects": "View Projects",
     "contact_me": "Contact Me",
@@ -83,6 +89,16 @@
       "portfolio": {
         "title": "Portfolio Site",
         "desc": "Personal developer portfolio built with React 19, Tailwind CSS, Framer Motion, and interactive Canvas particle stars."
+      },
+      "title": "TurarZone",
+      "desc": "A student-focused platform that helps students quickly find affordable housing and rental options.",
+      "dachahub": {
+        "title": "DachaHub",
+        "desc": "A modern platform to discover, explore and book the best dachas and vacation stays across Uzbekistan."
+      },
+      "turarzone": {
+        "title": "TurarZone",
+        "desc": "A student-focused platform that helps students quickly find affordable housing and rental options."
       }
     }
   },
@@ -107,6 +123,152 @@
   },
   "footer": {
     "copyright": "© 2026 Erkinov Jasur. All rights reserved.",
-    "built_with": "Engineered with React · Tailwind CSS · Framer Motion"
+    "built_with": "Engineered with React · Tailwind CSS · Framer Motion",
+    "quick_links": "Quick links",
+    "contact": "Contact",
+    "location": "Tashkent, Uzbekistan",
+    "rights": "All rights reserved.",
+    "made": "Made",
+    "with": "with"
+  },
+  "services": {
+    "label": "SERVICES",
+    "title_part1": "Website",
+    "title_part2": "pricing",
+    "subtitle": "Fast, premium websites for landing pages, portfolios and businesses. Clean design, smooth motion and fully responsive — all in one place.",
+    "popular": "Most popular",
+    "contact": "Start a project",
+    "timeline": "Delivery",
+    "items": [
+      {
+        "name": "Landing Page",
+        "desc": "A high-converting one-page website for your product or service.",
+        "price": "1,500,000",
+        "unit": "UZS",
+        "delivery": "3–5 days",
+        "features": [
+          "1 page + responsive",
+          "Modern animations",
+          "Contact form (Telegram)",
+          "Basic SEO setup",
+          "1 revision round"
+        ]
+      },
+      {
+        "name": "Portfolio site",
+        "desc": "A premium personal portfolio to build your brand.",
+        "price": "2,500,000",
+        "unit": "UZS",
+        "delivery": "5–7 days",
+        "features": [
+          "Up to 4 sections",
+          "Dark / Light mode",
+          "Multilingual system",
+          "Animations & 3D effects",
+          "SEO + speed optimization"
+        ],
+        "popular": true
+      },
+      {
+        "name": "Business site",
+        "desc": "A professional multi-page website for your company.",
+        "price": "5,000,000",
+        "unit": "UZS",
+        "delivery": "10–14 days",
+        "features": [
+          "Up to 6 pages",
+          "Admin panel / CMS",
+          "Multilingual support",
+          "Advanced animations",
+          "2 months free support"
+        ]
+      },
+      {
+        "name": "Web application",
+        "desc": "A custom web platform or dashboard with complex features.",
+        "price": "9,000,000",
+        "unit": "UZS+",
+        "delivery": "Custom",
+        "features": [
+          "Custom architecture",
+          "Auth & database",
+          "API integrations",
+          "Admin dashboard",
+          "Long-term support"
+        ]
+      },
+      {
+        "name": "E-commerce",
+        "desc": "A full-featured online store to sell your products.",
+        "price": "7,500,000",
+        "unit": "UZS",
+        "delivery": "14–20 days",
+        "features": [
+          "Product catalog",
+          "Cart & checkout",
+          "Payment integration",
+          "Admin panel",
+          "SEO optimization"
+        ]
+      },
+      {
+        "name": "Custom project",
+        "desc": "A fully tailored web solution built around your idea.",
+        "price": "Custom",
+        "unit": "quote",
+        "delivery": "Based on scope",
+        "features": [
+          "Fully custom design",
+          "Unlimited possibilities",
+          "APIs & integrations",
+          "Scalable architecture",
+          "Ongoing partnership"
+        ]
+      }
+    ],
+    "addons_title": "Add-on services",
+    "addons": [
+      {
+        "name": "Extra page",
+        "price": "500,000 UZS"
+      },
+      {
+        "name": "Copywriting",
+        "price": "300,000 UZS"
+      },
+      {
+        "name": "Speed optimization",
+        "price": "400,000 UZS"
+      },
+      {
+        "name": "Monthly support",
+        "price": "250,000 UZS / mo"
+      }
+    ],
+    "process_title": "How we work",
+    "steps": [
+      {
+        "title": "Brief & plan",
+        "desc": "We define goals, audience and requirements."
+      },
+      {
+        "title": "Design",
+        "desc": "Modern UI/UX prototype crafted in Figma."
+      },
+      {
+        "title": "Development",
+        "desc": "Fast, clean code with React and Tailwind."
+      },
+      {
+        "title": "Launch",
+        "desc": "Testing, optimization and deployment."
+      }
+    ],
+    "note": "Final pricing depends on project scope and requirements. Contact me for a free consultation.",
+    "select": "Select",
+    "selected": "Selected",
+    "selected_title": "Selected package",
+    "clear": "Clear",
+    "hint": "Choose a website type to see its price and timeline."
   }
 }

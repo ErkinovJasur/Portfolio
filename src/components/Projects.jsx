@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Sparkles, ArrowUpRight } from "lucide-react";
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { ExternalLink, Sparkles, ArrowUpRight, ShieldCheck } from 'lucide-react';
 
-function GithubIcon({ className = "w-4 h-4" }) {
+function GithubIcon({ className = 'w-4 h-4' }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
       <path
@@ -15,213 +15,242 @@ function GithubIcon({ className = "w-4 h-4" }) {
   );
 }
 
+function ProjectCard({ proj, index, t }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [6, -6]), { stiffness: 200, damping: 22 });
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-6, 6]), { stiffness: 200, damping: 22 });
+
+  const onMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const reset = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.article
+      layout
+      initial={{ opacity: 0, y: 26, scale: 0.97 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.45, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+      onMouseMove={onMove}
+      onMouseLeave={reset}
+      style={{ rotateX, rotateY, transformPerspective: 1000 }}
+      className="group"
+    >
+      <div className="surface surface-hover rounded-[1.75rem] overflow-hidden h-full flex flex-col">
+        {/* Browser bar */}
+        <div
+          className="flex items-center justify-between px-4 py-2.5"
+          style={{ borderBottom: '1px solid var(--line)', background: 'var(--field)' }}
+        >
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500/90" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/90" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/90" />
+          </div>
+          <span className="flex items-center gap-1.5 text-[10px] font-semibold text-dim">
+            <Sparkles className="w-2.5 h-2.5" style={{ color: 'var(--accent)' }} />
+            {proj.badge}
+          </span>
+        </div>
+
+        {/* Image */}
+        <div className="relative h-48 sm:h-52 overflow-hidden" style={{ background: 'var(--bg-soft)' }}>
+          <img
+            src={proj.image}
+            alt={proj.title}
+            loading="lazy"
+            className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent opacity-80" />
+          {proj.featured && (
+            <span className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold text-white bg-white/15 backdrop-blur-md border border-white/20">
+              <ShieldCheck className="w-3 h-3" />
+              Featured
+            </span>
+          )}
+        </div>
+
+        {/* Body */}
+        <div className="p-5 sm:p-6 flex flex-col flex-1">
+          <h3 className="font-heading text-lg font-semibold text-main mb-2 flex items-center justify-between gap-3">
+            <span className="truncate">{proj.title}</span>
+            <ArrowUpRight className="w-4 h-4 text-dim group-hover:text-main shrink-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </h3>
+          <p className="text-[13px] text-dim leading-relaxed mb-4 flex-1">{proj.desc}</p>
+
+          <div className="flex flex-wrap gap-1.5 mb-5">
+            {proj.tags.map((tag) => (
+              <span key={tag} className="chip text-[10.5px] py-1 px-2.5">{tag}</span>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2 mt-auto">
+            <a
+              href={proj.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 btn-primary py-2.5 text-[12px]"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              {t('projects.live_demo')}
+            </a>
+            <a
+              href={proj.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary py-2.5 px-3.5 text-[12px]"
+              title="Source code"
+            >
+              <GithubIcon className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
 export default function Projects() {
   const { t } = useTranslation();
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [filter, setFilter] = useState('all');
 
   const projects = [
     {
-      id: "weather",
-      category: "web",
-      badge: "⚡ Real-time API",
-      title: t("projects.items.weather.title"),
-      desc: t("projects.items.weather.desc"),
+      id: 'dachahub',
+      category: 'web',
+      badge: '🏡 Dacha Platform',
+      title: t('projects.items.dachahub.title'),
+      desc: t('projects.items.dachahub.desc'),
+      image: 'https://thearabianmirror.com/wp-content/uploads/2026/09/September-Edition-2-1089x730.png',
+      tags: ['React', 'Tailwind CSS', 'Vercel', 'Responsive UI'],
+      liveUrl: 'https://dachahub.vercel.app/',
+      githubUrl: 'https://github.com/ErkinovJasur',
+      featured: true,
+    },
+    {
+      id: 'turarzone',
+      category: 'web',
+      badge: '🏠 Student Housing',
+      title: t('projects.items.turarzone.title'),
+      desc: t('projects.items.turarzone.desc'),
+      image: 'https://plus.unsplash.com/premium_photo-1661962841993-99a07c27c9f4?crop=entropy&cs=srgb&fm=jpg&ixid=NHwxMjA3fDA&ixlib=rb-4.1.0&q=85',
+      tags: ['React', 'Tailwind CSS', 'Vite', 'Vercel'],
+      liveUrl: 'https://turarzone.vercel.app/',
+      githubUrl: 'https://github.com/ErkinovJasur',
+      featured: true,
+    },
+    {
+      id: 'uninest',
+      category: 'react',
+      badge: '🔥 Real Estate',
+      title: 'UniNest',
+      desc: t('projects.items.uniikost.desc'),
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUkpuYj5wBCIKVGz7yfHA2byivg0uEt3IX7QxddEaSbtxY0fzWZRvY1Jk&s=10",
-      tags: ["React", "OpenWeather API", "Tailwind CSS", "Lucide Icons"],
-      liveUrl: "https://weatherappclaudegemini.netlify.app/",
-      githubUrl: "https://github.com/ErkinovJasur/Weather-app",
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV0P_7-zSRe2-OoTJScRNohlE8fl5mcDCXt-5gYky3ww&s=10',
+      tags: ['React', 'Tailwind CSS', 'Framer Motion', 'Responsive UI'],
+      liveUrl: 'https://uninestapp.netlify.app/',
+      githubUrl: 'https://github.com/ErkinovJasur',
     },
     {
-      id: "uninest",
-      category: "react",
-      badge: "🔥 Featured Platform",
-      title: "UniNest",
-      desc: t("projects.items.uniikost.desc"),
+      id: 'weather',
+      category: 'web',
+      badge: '⚡ Real-time API',
+      title: t('projects.items.weather.title'),
+      desc: t('projects.items.weather.desc'),
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV0P_7-zSRe2-OoTJScRNohlE8fl5mcDCXt-5gYky3ww&s=10",
-      tags: ["React", "Tailwind CSS", "Framer Motion", "Responsive UI"],
-      liveUrl: "https://uninestapp.netlify.app/",
-      githubUrl: "/",
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUkpuYj5wBCIKVGz7yfHA2byivg0uEt3IX7QxddEaSbtxY0fzWZRvY1Jk&s=10',
+      tags: ['React', 'OpenWeather API', 'Tailwind CSS'],
+      liveUrl: 'https://weatherappclaudegemini.netlify.app/',
+      githubUrl: 'https://github.com/ErkinovJasur/Weather-app',
     },
     {
-      id: "currency",
-      category: "tools",
-      badge: "⚡ Live Rates",
-      title: t("projects.items.currency.title"),
-      desc: t("projects.items.currency.desc"),
-      image: "/projects/currency.svg",
-      tags: ["React", "Exchange Rates API", "JavaScript", "Tailwind CSS"],
-      liveUrl: "https://adorable-banoffee-efa0d9.netlify.app/",
-      githubUrl: "https://github.com/ErkinovJasur/Currency-convertor",
+      id: 'currency',
+      category: 'tools',
+      badge: '💱 Live Rates',
+      title: t('projects.items.currency.title'),
+      desc: t('projects.items.currency.desc'),
+      image: '/projects/currency.svg',
+      tags: ['React', 'Exchange Rates API', 'Tailwind CSS'],
+      liveUrl: 'https://adorable-banoffee-efa0d9.netlify.app/',
+      githubUrl: 'https://github.com/ErkinovJasur/Currency-convertor',
     },
     {
-      id: "contact",
-      category: "web",
-      badge: "💼 CRM System",
-      title: t("projects.items.contact.title"),
-      desc: t("projects.items.contact.desc"),
-      image: "/projects/contact.svg",
-      tags: ["React", "CRM System", "Tailwind CSS", "State Management"],
-      liveUrl: "https://portfolio-jade-three-43.vercel.app/",
-      githubUrl: "https://github.com/ErkinovJasur/Weather-app",
-    },
-    {
-      id: "Gravio",
-      category: "react",
-      badge: "🔥 Featured Platform",
-      title: "Gravio",
-      desc: "Gravio - bu dasturchilar va boshqa startUpchilar o'z loyihalarini bir biriga ulashadigan platforma",
-      image: "/projects/image.png",
-      tags: ["React", "Tailwind CSS", "Framer Motion", "Responsive UI"],
-      liveUrl: "https://gravioapp.vercel.app/",
-      githubUrl: "https://github.com/ErkinovJasur/Gravio",
+      id: 'contact',
+      category: 'tools',
+      badge: '💼 CRM System',
+      title: t('projects.items.contact.title'),
+      desc: t('projects.items.contact.desc'),
+      image: '/projects/contact.svg',
+      tags: ['React', 'CRM System', 'State Management'],
+      liveUrl: 'https://portfolio-jade-three-43.vercel.app/',
+      githubUrl: 'https://github.com/ErkinovJasur',
     },
   ];
 
-  const filterTabs = [
-    { key: "all", label: t("projects.filter_all") },
-    { key: "react", label: t("projects.filter_react") },
-    { key: "web", label: t("projects.filter_web") },
-    { key: "tools", label: t("projects.filter_tools") },
+  const filters = [
+    { key: 'all', label: t('projects.filter_all') },
+    { key: 'web', label: t('projects.filter_web') },
+    { key: 'react', label: t('projects.filter_react') },
+    { key: 'tools', label: t('projects.filter_tools') },
   ];
 
-  const filteredProjects =
-    activeFilter === "all"
-      ? projects
-      : projects.filter((p) => p.category === activeFilter);
+  const visible = filter === 'all' ? projects : projects.filter((p) => p.category === filter);
 
   return (
-    <section
-      id="projects"
-      className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"
-    >
-      {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-center mb-12"
-      >
-        <span className="inline-block px-3.5 py-1 rounded-full text-xs font-extrabold tracking-widest text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20 uppercase mb-3">
-          {t("projects.label")}
-        </span>
-        <h2 className="font-heading text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
-          {t("projects.title_part1")}{" "}
-          <span className="gradient-text">{t("projects.title_part2")}</span>
-        </h2>
+    <section id="projects" className="relative py-24 sm:py-32 px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12 sm:mb-16"
+        >
+          <span className="eyebrow mb-4">{t('projects.label')}</span>
+          <h2 className="font-heading text-3xl sm:text-5xl font-bold text-main mt-4 mb-7">
+            {t('projects.title_part1')}{' '}
+            <span className="gradient-text">{t('projects.title_part2')}</span>
+          </h2>
 
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          {filterTabs.map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveFilter(tab.key)}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                activeFilter === tab.key
-                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md shadow-purple-600/30"
-                  : "bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-      </motion.div>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {filters.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setFilter(tab.key)}
+                className={`px-4 py-2 rounded-full text-[12.5px] font-semibold transition-all ${
+                  filter === tab.key ? 'text-white' : 'text-dim hover:text-main'
+                }`}
+                style={
+                  filter === tab.key
+                    ? {
+                        background: 'linear-gradient(110deg, var(--accent-2), var(--accent), var(--accent-3))',
+                        boxShadow: '0 10px 26px -12px var(--glow)',
+                      }
+                    : { background: 'var(--glass)', border: '1px solid var(--line)' }
+                }
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </motion.div>
 
-      {/* Projects Grid with Ultra-Modern Card Styling */}
-      <motion.div
-        layout
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"
-      >
-        <AnimatePresence>
-          {filteredProjects.map((proj) => (
-            <motion.div
-              layout
-              key={proj.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4 }}
-              className="max-w-[400px] group relative rounded-3xl bg-white dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800/90 shadow-sm hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-400/60 dark:hover:border-purple-500/50 transition-all duration-300 flex flex-col justify-between overflow-hidden"
-            >
-              <div>
-                {/* Browser Style Frame Header */}
-                <div className="bg-slate-100 dark:bg-slate-950 px-4 py-2.5 border-b border-slate-200/90 dark:border-slate-800 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500/90 inline-block shadow-xs" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500/90 inline-block shadow-xs" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/90 inline-block shadow-xs" />
-                  </div>
-                  <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[10px] font-bold text-slate-700 dark:text-slate-300">
-                    <Sparkles className="w-2.5 h-2.5 text-pink-500" />
-                    <span>{proj.badge}</span>
-                  </div>
-                </div>
-
-                {/* Real Mockup Image with smooth hover zoom */}
-                <div className="h-52 w-full relative overflow-hidden bg-slate-950">
-                  <img
-                    src={proj.image}
-                    alt={proj.title}
-                    className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-500 ease-out"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="font-heading text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors flex items-center justify-between">
-                    <span>{proj.title}</span>
-                    <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-purple-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-                  </h3>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-5 font-normal">
-                    {proj.desc}
-                  </p>
-
-                  {/* Tech Tags */}
-                  <div className="flex flex-wrap gap-1.5 mb-2">
-                    {proj.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 group-hover:border-purple-200 dark:group-hover:border-purple-900/60 transition-colors"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="p-6 pt-0 flex items-center gap-3">
-                <a
-                  href={proj.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 btn-gradient py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 shadow-md shadow-purple-500/20 cursor-pointer text-white"
-                >
-                  <ExternalLink className="w-4 h-4 text-white" />
-                  <span className="text-white">{t("projects.live_demo")}</span>
-                </a>
-
-                <a
-                  href={proj.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 cursor-pointer bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-purple-400 hover:text-purple-600 dark:hover:text-purple-300 shadow-xs transition-all"
-                  title="Source code"
-                >
-                  <GithubIcon className="w-4 h-4" />
-                  <span>{t("projects.source_code")}</span>
-                </a>
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          <AnimatePresence mode="popLayout">
+            {visible.map((proj, i) => (
+              <ProjectCard key={proj.id} proj={proj} index={i} t={t} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </div>
     </section>
   );
 }

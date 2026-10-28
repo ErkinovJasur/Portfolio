@@ -1,5 +1,5 @@
 import { Moon, Sun } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
 
 export default function ThemeToggle() {
@@ -7,18 +7,29 @@ export default function ThemeToggle() {
 
   return (
     <motion.button
-      whileHover={{ scale: 1.06 }}
+      whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.94 }}
       onClick={toggleTheme}
-      className="p-2 rounded-full border border-slate-200/80 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-900/80 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-200 flex items-center justify-center shadow-sm cursor-pointer"
-      title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      className="icon-btn relative w-9 h-9 overflow-hidden"
+      title={isDark ? 'Light mode' : 'Dark mode'}
       aria-label="Toggle theme"
     >
-      {isDark ? (
-        <Sun className="w-4 h-4 text-amber-400" />
-      ) : (
-        <Moon className="w-4 h-4 text-indigo-600" />
-      )}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={isDark ? 'moon' : 'sun'}
+          initial={{ y: 14, opacity: 0, rotate: -30 }}
+          animate={{ y: 0, opacity: 1, rotate: 0 }}
+          exit={{ y: -14, opacity: 0, rotate: 30 }}
+          transition={{ duration: 0.2 }}
+          className="flex items-center justify-center"
+        >
+          {isDark ? (
+            <Moon className="w-4 h-4 text-indigo-300" />
+          ) : (
+            <Sun className="w-4 h-4 text-amber-500" />
+          )}
+        </motion.span>
+      </AnimatePresence>
     </motion.button>
   );
 }

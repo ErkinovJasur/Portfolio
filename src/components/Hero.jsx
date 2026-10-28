@@ -1,96 +1,123 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Mail, Sparkles, Terminal, CheckCircle, Flame, Copy, Check } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import {
+  ArrowRight,
+  Mail,
+  Sparkles,
+  Terminal,
+  CheckCircle2,
+  Flame,
+  Copy,
+  Check,
+  MapPin,
+  Circle,
+} from 'lucide-react';
 
 export default function Hero() {
   const { t, i18n } = useTranslation();
   const [roleIndex, setRoleIndex] = useState(0);
-  const [copiedCode, setCopiedCode] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const ref = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  });
+  const yCard = useTransform(scrollYProgress, [0, 1], [0, -70]);
+  const opacityHero = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const roles = t('hero.roles', { returnObjects: true }) || [
-    'Frontend Dasturchi',
-    'React Mutaxassisi',
-    'UI/UX Ishqibozi',
-    'Zamonaviy Veb Muhandisi',
+    'Frontend Developer',
+    'React Specialist',
+    'UI/UX Craftsman',
   ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % roles.length);
+    const id = setInterval(() => {
+      setRoleIndex((p) => (p + 1) % roles.length);
     }, 2800);
-    return () => clearInterval(interval);
+    return () => clearInterval(id);
   }, [roles.length]);
 
-  const copyConfig = () => {
-    const codeSnippet = `const developer = {
+  const copyCode = () => {
+    const code = `const developer = {
   name: "Erkinov Jasur",
   role: "Frontend Developer",
   school: "Mars IT School",
-  stack: ["React", "Tailwind CSS", "JavaScript", "Framer Motion"],
-  status: "Available for projects"
+  stack: ["React", "Tailwind CSS", "Framer Motion"],
+  status: "available"
 };`;
-    navigator.clipboard.writeText(codeSnippet);
-    setCopiedCode(true);
-    setTimeout(() => setCopiedCode(false), 2000);
+    navigator.clipboard?.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1800);
   };
 
   return (
     <section
       id="home"
-      className="relative min-h-[90vh] flex items-center justify-center pt-32 sm:pt-36 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden"
+      ref={ref}
+      className="relative min-h-screen flex items-center overflow-hidden px-4 sm:px-6 pt-32 pb-20 sm:pt-36"
     >
-      {/* Background Ambient Glow Spheres */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] sm:w-[750px] h-[450px] sm:h-[750px] bg-gradient-to-tr from-blue-500/10 via-purple-500/10 to-pink-500/10 dark:from-blue-600/15 dark:via-purple-600/15 dark:to-pink-500/15 rounded-full blur-[140px] pointer-events-none -z-10" />
+      {/* Ambient orbs */}
+      <div className="glow-orb w-[420px] h-[420px] bg-indigo-500/30 top-[-8%] left-[8%]" />
+      <div
+        className="glow-orb w-[380px] h-[380px] bg-pink-500/25 bottom-[5%] right-[6%]"
+        style={{ animationDelay: '7s' }}
+      />
+      <div
+        className="glow-orb w-[300px] h-[300px] bg-purple-500/25 top-[45%] left-[45%]"
+        style={{ animationDelay: '13s' }}
+      />
 
-      <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-        {/* Left Column: Text & Intro */}
-        <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
-          {/* Live Status Pill */}
+      <motion.div
+        style={{ opacity: opacityHero }}
+        className="relative z-10 mx-auto w-full max-w-6xl grid lg:grid-cols-12 gap-14 lg:gap-10 items-center"
+      >
+        {/* Left */}
+        <div className="lg:col-span-7 flex flex-col items-center text-center lg:items-start lg:text-left">
           <motion.div
-            initial={{ opacity: 0, y: -15 }}
+            initial={{ opacity: 0, y: -14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-purple-200 dark:border-purple-500/30 bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 text-xs sm:text-sm font-semibold shadow-sm mb-6 backdrop-blur-md"
+            transition={{ duration: 0.6 }}
+            className="eyebrow inline-flex mb-6"
           >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70 animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
-            <span className="text-purple-700 dark:text-purple-300 font-semibold">{t('hero.badge')}</span>
+            {t('hero.badge')}
           </motion.div>
 
-          {/* Main Title */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-heading text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white leading-[1.08]"
+            transition={{ duration: 0.7, delay: 0.05 }}
+            className="font-heading text-[2.75rem] leading-[1.02] sm:text-6xl md:text-7xl font-bold tracking-tight mb-5 text-main"
           >
-            <span className="text-slate-500 dark:text-slate-400 text-2xl sm:text-4xl block font-medium mb-1">
+            <span className="block text-[1.35rem] sm:text-3xl font-medium mb-2 text-dim tracking-tight">
               {t('hero.greeting')}
             </span>
             {t('hero.title_first')}{' '}
-            <span className="gradient-text drop-shadow-sm">{t('hero.title_last')}</span>
+            <span className="gradient-text">{t('hero.title_last')}</span>
           </motion.h1>
 
-          {/* Dynamic Animated Roles */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="h-10 sm:h-12 flex items-center gap-2 text-lg sm:text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6"
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="flex items-center gap-2 text-lg sm:text-2xl font-semibold mb-6 h-9"
           >
-            <span className="text-purple-600 dark:text-purple-400">{t('hero.role_prefix')}</span>
-            <div className="relative overflow-hidden inline-block min-w-[200px] text-left">
+            <span className="text-dim font-medium text-base sm:text-lg">{t('hero.role_prefix')}</span>
+            <div className="relative overflow-hidden inline-flex text-left">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={roleIndex + i18n.language}
-                  initial={{ y: 20, opacity: 0 }}
+                  initial={{ y: 22, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -20, opacity: 0 }}
+                  exit={{ y: -22, opacity: 0 }}
                   transition={{ duration: 0.35, ease: 'easeOut' }}
-                  className="gradient-text font-extrabold inline-block"
+                  className="gradient-text font-bold"
                 >
                   {roles[roleIndex]}
                 </motion.span>
@@ -98,138 +125,166 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Description */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed mb-8 font-normal"
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="max-w-xl text-[15px] sm:text-[17px] leading-relaxed mb-9 text-dim"
           >
             {t('hero.description')}
           </motion.p>
 
-          {/* Action CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-wrap items-center justify-center lg:justify-start gap-4 w-full sm:w-auto mb-10"
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="flex flex-wrap items-center justify-center lg:justify-start gap-3 w-full sm:w-auto mb-10"
           >
-            <a
-              href="#projects"
-              className="btn-gradient px-8 py-3.5 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-xl shadow-purple-600/30 group cursor-pointer w-full sm:w-auto"
-            >
-              <span className="text-white">{t('hero.view_projects')}</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform text-white" />
+            <a href="#projects" className="btn-primary px-7 py-3.5 text-sm w-full sm:w-auto group">
+              {t('hero.view_projects')}
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
-
-            <a
-              href="#contact"
-              className="px-8 py-3.5 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 cursor-pointer w-full sm:w-auto bg-white dark:bg-white/5 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-purple-500 shadow-sm transition-all"
-            >
-              <Mail className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-              <span className="text-slate-800 dark:text-slate-200">{t('hero.contact_me')}</span>
+            <a href="#contact" className="btn-secondary px-7 py-3.5 text-sm w-full sm:w-auto">
+              <Mail className="w-4 h-4" />
+              {t('hero.contact_me')}
             </a>
           </motion.div>
 
-          {/* Highlights Mini Counter */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs sm:text-sm font-semibold"
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 text-[12px] sm:text-[13px] font-medium text-dim"
           >
-            <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-              <CheckCircle className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
-              <span className="text-slate-700 dark:text-slate-300">13+ Tasks Done</span>
-            </div>
-            <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-              <Flame className="w-4 h-4 text-amber-500 dark:text-amber-400" />
-              <span className="text-slate-700 dark:text-slate-300">6+ Web Projects</span>
-            </div>
-            <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-              <Sparkles className="w-4 h-4 text-pink-500 dark:text-pink-400" />
-              <span className="text-slate-700 dark:text-slate-300">100% Responsive</span>
-            </div>
+            <span className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+              13+ Tasks Done
+            </span>
+            <span className="flex items-center gap-2">
+              <Flame className="w-4 h-4 text-amber-500" />
+              6+ Web Projects
+            </span>
+            <span className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-pink-500" />
+              100% Responsive
+            </span>
           </motion.div>
         </div>
 
-        {/* Right Column: Code Terminal Window */}
+        {/* Right - layered glass profile */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          style={{ y: yCard }}
+          initial={{ opacity: 0, scale: 0.96, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="lg:col-span-5 w-full"
+          transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:col-span-5 w-full flex justify-center"
         >
-          <div className="rounded-2xl bg-slate-900/95 dark:bg-slate-950/90 border border-slate-700/80 dark:border-slate-800/90 shadow-2xl shadow-purple-950/20 overflow-hidden backdrop-blur-xl">
-            {/* Terminal Window Bar */}
-            <div className="px-4 py-3 bg-slate-950/80 dark:bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-rose-500 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
-                <span className="ml-2 text-xs font-mono text-slate-300 dark:text-slate-400 flex items-center gap-1.5 font-medium">
-                  <Terminal className="w-3.5 h-3.5 text-purple-400" />
-                  {t('hero.code_title')}
-                </span>
-              </div>
-              <button
-                onClick={copyConfig}
-                className="text-slate-400 hover:text-white p-1 rounded-md hover:bg-slate-800 transition-colors text-xs flex items-center gap-1 cursor-pointer"
-                title="Copy snippet"
-              >
-                {copiedCode ? (
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                ) : (
-                  <Copy className="w-3.5 h-3.5" />
-                )}
-              </button>
-            </div>
+          <div className="relative w-full max-w-[390px]">
+            {/* floating badge */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -top-5 -right-3 sm:-right-6 z-20 chip px-3 py-2 text-[11px]"
+              style={{ background: 'var(--glass-strong)' }}
+            >
+              <MapPin className="w-3.5 h-3.5" style={{ color: 'var(--accent)' }} />
+              Tashkent, UZ
+            </motion.div>
 
-            {/* Code Content */}
-            <div className="p-5 font-mono text-xs sm:text-sm leading-relaxed text-slate-300 overflow-x-auto select-text">
-              <div>
-                <span className="text-purple-400 font-semibold">const</span>{' '}
-                <span className="text-blue-400 font-semibold">developer</span> = &#123;
-              </div>
-              <div className="pl-4">
-                <span className="text-slate-400">name:</span>{' '}
-                <span className="text-emerald-300">"Erkinov Jasur"</span>,
-              </div>
-              <div className="pl-4">
-                <span className="text-slate-400">role:</span>{' '}
-                <span className="text-emerald-300">"Frontend Developer"</span>,
-              </div>
-              <div className="pl-4">
-                <span className="text-slate-400">school:</span>{' '}
-                <span className="text-emerald-300">"Mars IT School"</span>,
-              </div>
-              <div className="pl-4">
-                <span className="text-slate-400">stack:</span> [
-              </div>
-              <div className="pl-8 text-cyan-300">
-                "React", "Tailwind CSS", "JavaScript", "Framer Motion"
-              </div>
-              <div className="pl-4">],</div>
-              <div className="pl-4">
-                <span className="text-slate-400">status:</span>{' '}
-                <span className="text-amber-300">"Ready for new ideas 🚀"</span>,
-              </div>
-              <div className="pl-4">
-                <span className="text-slate-400">cleanCode:</span>{' '}
-                <span className="text-pink-400">true</span>
-              </div>
-              <div>&#125;;</div>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              className="absolute -bottom-5 -left-2 sm:-left-5 z-20 chip px-3 py-2 text-[11px]"
+              style={{ background: 'var(--glass-strong)' }}
+            >
+              <Circle className="w-2.5 h-2.5 fill-emerald-500 text-emerald-500" />
+              Open to work
+            </motion.div>
 
-              <div className="mt-4 pt-3 border-t border-slate-800 flex items-center gap-2 text-xs text-slate-400">
-                <span className="text-emerald-400 font-bold">&gt;</span>
-                <span className="text-slate-300">developer.buildNextGenWeb()</span>
-                <span className="animate-pulse w-2 h-4 bg-purple-500 inline-block align-middle ml-1" />
+            {/* Main card */}
+            <div className="surface rounded-[2rem] p-6 sm:p-7 relative overflow-hidden">
+              <div
+                className="absolute -top-24 -right-20 w-56 h-56 rounded-full blur-3xl"
+                style={{ background: 'var(--glow)' }}
+              />
+
+              <div className="relative flex items-center gap-4 mb-6">
+                <div className="relative">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 blur-md opacity-70" />
+                  <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[2px]">
+                    <div className="w-full h-full rounded-full flex items-center justify-center text-white font-heading font-bold text-xl"
+                      style={{ background: 'var(--bg-soft)' }}>
+                      <span className="gradient-text">EJ</span>
+                    </div>
+                  </div>
+                  <span className="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-emerald-500 border-[3px]"
+                    style={{ borderColor: 'var(--bg-soft)' }} />
+                </div>
+                <div className="min-w-0">
+                  <h3 className="font-heading text-lg font-semibold text-main truncate">
+                    Erkinov Jasur
+                  </h3>
+                  <p className="text-[12px] text-dim">Frontend Developer</p>
+                  <div className="flex items-center gap-1.5 mt-1.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-500">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    Available
+                  </div>
+                </div>
+              </div>
+
+              <div className="hairline mb-5" />
+
+              <div className="flex flex-wrap gap-1.5 mb-5">
+                {['React', 'Tailwind', 'Framer Motion', 'Vite', 'JavaScript'].map((s) => (
+                  <span key={s} className="chip text-[11px] py-1 px-2.5">{s}</span>
+                ))}
+              </div>
+
+              {/* mini terminal */}
+              <div className="rounded-2xl overflow-hidden" style={{ background: 'var(--field)', border: '1px solid var(--line)' }}>
+                <div className="flex items-center justify-between px-3.5 py-2.5" style={{ borderBottom: '1px solid var(--line)' }}>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500/90" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500/90" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/90" />
+                    <span className="ml-2 text-[10px] font-mono text-dim flex items-center gap-1.5">
+                      <Terminal className="w-3 h-3" />
+                      {t('hero.code_title')}
+                    </span>
+                  </div>
+                  <button onClick={copyCode} className="text-dim hover:text-main transition-colors" title="Copy">
+                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+                <pre className="p-3.5 text-[10.5px] sm:text-[11.5px] leading-relaxed font-mono overflow-x-auto text-dim">
+{`const `}<span className="text-indigo-500">developer</span>{` = {
+  name: `}<span className="text-emerald-500">"Erkinov Jasur"</span>{`,
+  role: `}<span className="text-emerald-500">"Frontend Developer"</span>{`,
+  school: `}<span className="text-emerald-500">"Mars IT School"</span>{`,
+  status: `}<span className="text-pink-500">"available"</span>{`
+};`}
+                </pre>
               </div>
             </div>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
+
+      {/* scroll hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="absolute bottom-7 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 text-dim"
+      >
+        <span className="text-[9px] uppercase tracking-[0.3em] font-medium">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 7, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          className="w-[1px] h-7"
+          style={{ background: 'linear-gradient(to bottom, var(--accent), transparent)' }}
+        />
+      </motion.div>
     </section>
   );
 }
