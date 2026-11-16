@@ -1,116 +1,166 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { ExternalLink, Sparkles, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  ArrowUpRight,
+  ExternalLink,
+  Sparkles,
+  Eye,
+} from 'lucide-react';
+import { projects, projectFilters } from '../data/content';
+import SectionHeading from './SectionHeading';
+import { GithubIcon } from './Icons';
 
-function GithubIcon({ className = 'w-4 h-4' }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-      />
-    </svg>
-  );
-}
-
-function ProjectCard({ proj, index, t }) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [6, -6]), { stiffness: 200, damping: 22 });
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-6, 6]), { stiffness: 200, damping: 22 });
-
-  const onMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-
-  const reset = () => {
-    x.set(0);
-    y.set(0);
-  };
+function ModernProjectCard({ project, index, t }) {
+  const title = t(`projects.items.${project.id}.title`);
+  const description = t(`projects.items.${project.id}.desc`);
+  const primaryUrl = project.liveUrl || project.githubUrl;
 
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, y: 26, scale: 0.97 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.45, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      onMouseMove={onMove}
-      onMouseLeave={reset}
-      style={{ rotateX, rotateY, transformPerspective: 1000 }}
-      className="group"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.45, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      className="group h-full flex flex-col"
     >
-      <div className="surface surface-hover rounded-[1.75rem] overflow-hidden h-full flex flex-col">
-        {/* Browser bar */}
-        <div
-          className="flex items-center justify-between px-4 py-2.5"
-          style={{ borderBottom: '1px solid var(--line)', background: 'var(--field)' }}
+      <div
+        className="brown-card brown-card-hover flex h-full flex-col overflow-hidden border shadow-lg"
+        style={{
+          background: 'var(--surface)',
+          borderColor: 'var(--line)',
+        }}
+      >
+        {/* Project Image Preview Container */}
+        <a
+          href={primaryUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative block overflow-hidden aspect-[16/10] bg-[var(--surface-2)] border-b border-[var(--line)] cursor-pointer"
+          aria-label={`${title} — ${project.liveUrl ? 'Demo' : 'GitHub'}`}
         >
-          <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-500/90" />
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/90" />
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/90" />
-          </div>
-          <span className="flex items-center gap-1.5 text-[10px] font-semibold text-dim">
-            <Sparkles className="w-2.5 h-2.5" style={{ color: 'var(--accent)' }} />
-            {proj.badge}
-          </span>
-        </div>
-
-        {/* Image */}
-        <div className="relative h-48 sm:h-52 overflow-hidden" style={{ background: 'var(--bg-soft)' }}>
           <img
-            src={proj.image}
-            alt={proj.title}
+            src={project.image}
+            alt={`${title} preview`}
             loading="lazy"
-            className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-110"
+            width="1200"
+            height="750"
+            className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.05]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent opacity-80" />
-          {proj.featured && (
-            <span className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold text-white bg-white/15 backdrop-blur-md border border-white/20">
-              <ShieldCheck className="w-3 h-3" />
-              Featured
+
+          {/* Warm Dark Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-50 group-hover:opacity-30 transition-opacity" />
+
+          {/* Top Badges */}
+          <div className="absolute top-3 inset-x-3 flex items-center justify-between gap-2">
+            <span
+              className="mono-label rounded-full px-3 py-1 text-[10.5px] font-bold tracking-wider"
+              style={{
+                background: 'rgba(24, 17, 13, 0.85)',
+                color: 'var(--accent)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                border: '1px solid var(--line-strong)',
+              }}
+            >
+              {t(`projects.types.${project.category}`)}
             </span>
-          )}
-        </div>
 
-        {/* Body */}
-        <div className="p-5 sm:p-6 flex flex-col flex-1">
-          <h3 className="font-heading text-lg font-semibold text-main mb-2 flex items-center justify-between gap-3">
-            <span className="truncate">{proj.title}</span>
-            <ArrowUpRight className="w-4 h-4 text-dim group-hover:text-main shrink-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </h3>
-          <p className="text-[13px] text-dim leading-relaxed mb-4 flex-1">{proj.desc}</p>
+            {project.featured ? (
+              <span
+                className="rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-md"
+                style={{
+                  background: 'linear-gradient(135deg, #D9A877 0%, #C8925A 100%)',
+                  color: '#18110D',
+                }}
+              >
+                <Sparkles className="h-2.5 w-2.5" />
+                {t('projects.featured')}
+              </span>
+            ) : null}
+          </div>
 
-          <div className="flex flex-wrap gap-1.5 mb-5">
-            {proj.tags.map((tag) => (
-              <span key={tag} className="chip text-[10.5px] py-1 px-2.5">{tag}</span>
+          {/* Floating Live Preview Button on Hover */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-[2px] bg-black/35">
+            <span className="btn-primary py-2 px-4 text-[13px] rounded-full shadow-2xl flex items-center gap-1.5">
+              <Eye className="h-3.5 w-3.5" />
+              <span>Ko'rish</span>
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
+          </div>
+        </a>
+
+        {/* Project Info & Description */}
+        <div className="flex flex-1 flex-col p-6 sm:p-7">
+          <a
+            href={primaryUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/title block"
+          >
+            <h3 className="font-heading text-[20px] font-bold text-main group-hover/title:text-[var(--accent)] transition-colors flex items-center justify-between gap-2">
+              <span>{title}</span>
+              <ArrowUpRight className="h-4 w-4 text-dim transition-transform duration-300 group-hover/title:-translate-y-0.5 group-hover/title:translate-x-0.5 shrink-0" />
+            </h3>
+          </a>
+
+          <p className="mt-2.5 flex-1 text-[13.5px] leading-relaxed text-dim">
+            {description}
+          </p>
+
+          {/* Technology Tags */}
+          <div className="mt-5 flex flex-wrap gap-1.5">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="chip text-[11.5px] font-medium"
+              >
+                {tag}
+              </span>
             ))}
           </div>
 
-          <div className="flex items-center gap-2 mt-auto">
-            <a
-              href={proj.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 btn-primary py-2.5 text-[12px]"
-            >
-              <ExternalLink className="w-3.5 h-3.5" />
-              {t('projects.live_demo')}
-            </a>
-            <a
-              href={proj.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary py-2.5 px-3.5 text-[12px]"
-              title="Source code"
-            >
-              <GithubIcon className="w-4 h-4" />
-            </a>
+          {/* Action Buttons: Ko'rish & GitHub */}
+          <div
+            className="mt-6 flex items-center gap-3 border-t pt-4"
+            style={{ borderColor: 'var(--line)' }}
+          >
+            {project.liveUrl ? (
+              <>
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary flex-1 h-9 gap-1.5 text-[13px] rounded-full"
+                >
+                  <span>Ko'rish</span>
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary h-9 gap-1.5 px-4 text-[13px] rounded-full"
+                  title="GitHub Kodini ko'rish"
+                >
+                  <GithubIcon className="h-3.5 w-3.5" />
+                  <span>GitHub</span>
+                </a>
+              </>
+            ) : (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary w-full h-9 gap-1.5 text-[13px] rounded-full"
+              >
+                <GithubIcon className="h-4 w-4" />
+                <span>Ko'rish (GitHub)</span>
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -122,131 +172,76 @@ export default function Projects() {
   const { t } = useTranslation();
   const [filter, setFilter] = useState('all');
 
-  const projects = [
-    {
-      id: 'dachahub',
-      category: 'web',
-      badge: '🏡 Dacha Platform',
-      title: t('projects.items.dachahub.title'),
-      desc: t('projects.items.dachahub.desc'),
-      image: 'https://thearabianmirror.com/wp-content/uploads/2026/09/September-Edition-2-1089x730.png',
-      tags: ['React', 'Tailwind CSS', 'Vercel', 'Responsive UI'],
-      liveUrl: 'https://dachahub.vercel.app/',
-      githubUrl: 'https://github.com/ErkinovJasur',
-      featured: true,
-    },
-    {
-      id: 'turarzone',
-      category: 'web',
-      badge: '🏠 Student Housing',
-      title: t('projects.items.turarzone.title'),
-      desc: t('projects.items.turarzone.desc'),
-      image: 'https://plus.unsplash.com/premium_photo-1661962841993-99a07c27c9f4?crop=entropy&cs=srgb&fm=jpg&ixid=NHwxMjA3fDA&ixlib=rb-4.1.0&q=85',
-      tags: ['React', 'Tailwind CSS', 'Vite', 'Vercel'],
-      liveUrl: 'https://turarzone.vercel.app/',
-      githubUrl: 'https://github.com/ErkinovJasur',
-      featured: true,
-    },
-    {
-      id: 'uninest',
-      category: 'react',
-      badge: '🔥 Real Estate',
-      title: 'UniNest',
-      desc: t('projects.items.uniikost.desc'),
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV0P_7-zSRe2-OoTJScRNohlE8fl5mcDCXt-5gYky3ww&s=10',
-      tags: ['React', 'Tailwind CSS', 'Framer Motion', 'Responsive UI'],
-      liveUrl: 'https://uninestapp.netlify.app/',
-      githubUrl: 'https://github.com/ErkinovJasur',
-    },
-    {
-      id: 'weather',
-      category: 'web',
-      badge: '⚡ Real-time API',
-      title: t('projects.items.weather.title'),
-      desc: t('projects.items.weather.desc'),
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUkpuYj5wBCIKVGz7yfHA2byivg0uEt3IX7QxddEaSbtxY0fzWZRvY1Jk&s=10',
-      tags: ['React', 'OpenWeather API', 'Tailwind CSS'],
-      liveUrl: 'https://weatherappclaudegemini.netlify.app/',
-      githubUrl: 'https://github.com/ErkinovJasur/Weather-app',
-    },
-    {
-      id: 'currency',
-      category: 'tools',
-      badge: '💱 Live Rates',
-      title: t('projects.items.currency.title'),
-      desc: t('projects.items.currency.desc'),
-      image: '/projects/currency.svg',
-      tags: ['React', 'Exchange Rates API', 'Tailwind CSS'],
-      liveUrl: 'https://adorable-banoffee-efa0d9.netlify.app/',
-      githubUrl: 'https://github.com/ErkinovJasur/Currency-convertor',
-    },
-    {
-      id: 'contact',
-      category: 'tools',
-      badge: '💼 CRM System',
-      title: t('projects.items.contact.title'),
-      desc: t('projects.items.contact.desc'),
-      image: '/projects/contact.svg',
-      tags: ['React', 'CRM System', 'State Management'],
-      liveUrl: 'https://portfolio-jade-three-43.vercel.app/',
-      githubUrl: 'https://github.com/ErkinovJasur',
-    },
-  ];
-
-  const filters = [
-    { key: 'all', label: t('projects.filter_all') },
-    { key: 'web', label: t('projects.filter_web') },
-    { key: 'react', label: t('projects.filter_react') },
-    { key: 'tools', label: t('projects.filter_tools') },
-  ];
-
-  const visible = filter === 'all' ? projects : projects.filter((p) => p.category === filter);
+  const visible =
+    filter === 'all' ? projects : projects.filter((project) => project.category === filter);
 
   return (
-    <section id="projects" className="relative py-24 sm:py-32 px-4 sm:px-6">
-      <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16"
-        >
-          <span className="eyebrow mb-4">{t('projects.label')}</span>
-          <h2 className="font-heading text-3xl sm:text-5xl font-bold text-main mt-4 mb-7">
-            {t('projects.title_part1')}{' '}
-            <span className="gradient-text">{t('projects.title_part2')}</span>
-          </h2>
+    <section id="projects" className="relative py-20 sm:py-28">
+      <div className="mx-auto w-full max-w-[1140px] px-5 sm:px-8">
+        <SectionHeading
+          index="03"
+          label={t('projects.label')}
+          title={
+            <>
+              {t('projects.title_part1')}{' '}
+              <span className="font-serif-accent text-[var(--accent)] font-normal italic">
+                {t('projects.title_part2')}
+              </span>
+            </>
+          }
+          description={t('projects.subtitle')}
+        />
 
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {filters.map((tab) => (
-              <button
-                key={tab.key}
-                onClick={() => setFilter(tab.key)}
-                className={`px-4 py-2 rounded-full text-[12.5px] font-semibold transition-all ${
-                  filter === tab.key ? 'text-white' : 'text-dim hover:text-main'
-                }`}
-                style={
-                  filter === tab.key
-                    ? {
-                        background: 'linear-gradient(110deg, var(--accent-2), var(--accent), var(--accent-3))',
-                        boxShadow: '0 10px 26px -12px var(--glow)',
-                      }
-                    : { background: 'var(--glass)', border: '1px solid var(--line)' }
-                }
-              >
-                {tab.label}
-              </button>
-            ))}
+        {/* Filters Bar with Smooth Sliding Pill */}
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
+          <div
+            className="inline-flex items-center gap-1 rounded-full p-1.5 border shadow-xs"
+            style={{
+              background: 'var(--surface-translucent)',
+              borderColor: 'var(--line)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+            }}
+          >
+            {projectFilters.map((tab) => {
+              const active = filter === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setFilter(tab.id)}
+                  aria-pressed={active}
+                  className="relative rounded-full px-4 py-1.5 text-[12.5px] font-semibold transition-colors duration-200"
+                  style={{
+                    color: active ? '#18110D' : 'var(--muted)',
+                  }}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="project-tab-pill"
+                      className="absolute inset-0 rounded-full shadow-sm"
+                      style={{
+                        background: 'linear-gradient(135deg, #D9A877 0%, #C8925A 100%)',
+                      }}
+                      transition={{ type: 'spring', bounce: 0.18, duration: 0.45 }}
+                    />
+                  )}
+                  <span className="relative z-10">{t(`projects.filters.${tab.id}`)}</span>
+                </button>
+              );
+            })}
           </div>
-        </motion.div>
 
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          <span className="font-mono text-[12px] font-semibold text-dim">
+            {String(visible.length).padStart(2, '0')} / {String(projects.length).padStart(2, '0')} loyiha
+          </span>
+        </div>
+
+        {/* Project Grid */}
+        <motion.div layout className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
-            {visible.map((proj, i) => (
-              <ProjectCard key={proj.id} proj={proj} index={i} t={t} />
+            {visible.map((project, index) => (
+              <ModernProjectCard key={project.id} project={project} index={index} t={t} />
             ))}
           </AnimatePresence>
         </motion.div>

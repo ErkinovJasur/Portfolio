@@ -1,23 +1,23 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ThemeContext } from './themeStore';
 
-const ThemeContext = createContext();
+const getInitialTheme = () => {
+  const saved = localStorage.getItem('portfolio_theme');
+  if (saved === 'light' || saved === 'dark') return saved;
+  return 'dark';
+};
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('portfolio_theme');
-    if (saved) return saved;
-    return 'dark'; // Default to dark for portfolio aesthetic
-  });
+  const [theme, setTheme] = useState(getInitialTheme);
 
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === 'light') {
-      root.classList.remove('dark');
-      root.classList.add('light');
-    } else {
-      root.classList.remove('light');
-      root.classList.add('dark');
-    }
+    root.classList.toggle('dark', theme === 'dark');
+    root.classList.toggle('light', theme === 'light');
+    root.style.colorScheme = theme;
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', theme === 'dark' ? '#18110D' : '#FAF5EE');
     localStorage.setItem('portfolio_theme', theme);
   }, [theme]);
 
@@ -30,12 +30,4 @@ export function ThemeProvider({ children }) {
       {children}
     </ThemeContext.Provider>
   );
-}
-
-export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
 }

@@ -4,271 +4,245 @@
     "about": "Men haqimda",
     "skills": "Ko'nikmalar",
     "projects": "Loyihalar",
-    "contact": "Aloqa",
-    "services": "Xizmatlar"
+    "experience": "Tajriba",
+    "contact": "Aloqa"
+  },
+  "common": {
+    "menu": "Menyu",
+    "close": "Yopish",
+    "theme": "Mavzu",
+    "language": "Til",
+    "back_to_top": "Yuqoriga",
+    "scroll": "Scroll",
+    "copy": "Nusxalash",
+    "copied": "Nusxalandi",
+    "available": "Ish uchun ochiq",
+    "open_to_work": "Yangi loyihalarga ochiq",
+    "skip_to_content": "Asosiy qismga o'tish"
   },
   "hero": {
     "status": "Yangi loyihalar uchun ochiq",
-    "badge": "Frontend Developer · Mars IT School",
+    "badge": "Junior Frontend Developer",
     "greeting": "Salom, men",
     "title_first": "Erkinov",
     "title_last": "Jasur",
     "role_prefix": "Men — ",
     "roles": [
-      "Frontend Dasturchi",
-      "React Mutaxassisi",
-      "UI/UX Ishqibozi",
-      "Zamonaviy Veb Muhandisi"
+      "Junior Frontend Developer",
+      "React Dasturchi",
+      "UI Ishqibozi"
     ],
-    "description": "React, Tailwind CSS va zamonaviy JavaScript yordamida yuqori sifatli, tezkor va ko'zni quvontiruvchi veb-ilovalarni yarataman. G'oyalarni premium raqamli tajribaga aylantiraman.",
+    "description": "React va Tailwind CSS yordamida tezkor, moslashuvchan va ko'zni quvontiruvchi interfeyslar yarataman. Har bir loyihada toza kod va foydalanuvchi uchun qulay tajribaga e'tibor beraman.",
     "view_projects": "Loyihalarni ko'rish",
     "contact_me": "Bog'lanish",
-    "code_title": "developer.config.js"
+    "code_title": "developer.js",
+    "local_time": "Toshkent vaqti",
+    "based_in": "Manzil",
+    "services_label": "Nimalar yarataman",
+    "service_desc": {
+      "landing": "Tezkor va konversion sahifa",
+      "portfolio": "Shaxsiy brendingiz uchun",
+      "webapp": "React asosida interaktiv ilova"
+    },
+    "direct_note": "Telegram orqali to'g'ridan-to'g'ri",
+    "stats": {
+      "projects": "Loyihalar",
+      "technologies": "Texnologiyalar",
+      "languages": "Tillar",
+      "responsive": "Moslashuv"
+    }
   },
   "about": {
     "label": "MEN HAQIMDA",
-    "title_part1": "Veb olamini yaratishga",
-    "title_part2": "ishtiyoqmandman",
+    "title_part1": "G'oyalarni",
+    "title_part2": "interfeysga aylantiraman",
     "who_title": "Men kimman?",
-    "who_desc": "Men zamonaviy Frontend ekotizimida foydalanuvchilarga qulay va tezkor interfeyslar yaratuvchi dasturchiman. Mars IT School'da intensiv tahsil olib, real loyihalarda toza kod, komponentlar arxitekturasi va responsive dizayn ko'nikmalarini mustahkamlab kelmoqdaman.",
-    "stats": {
-      "tasks": "Bajarilgan vazifalar",
-      "team": "Jamoaviy bo'lim",
-      "tech": "Texnologiyalar",
-      "projects": "Yaratilgan loyihalar"
-    },
-    "skills_title": "Asboblar va Texnologiyalar",
-    "categories": {
-      "frontend": "Frontend Dasturlash",
-      "database": "Ma'lumotlar bazasi",
-      "devops": "DevOps & Deploy",
-      "tools": "Asboblar & Muhit",
-      "ai": "Sun'iy Intellekt (AI)"
-    },
-    "journey_title": "O'rganish yo'li",
-    "journey_role": "Talaba · Frontend Dasturlash",
-    "journey_school": "Mars IT School",
-    "journey_desc": "Zamonaviy veb-texnologiyalar, React arxitekturasi, murakkab holatlarni boshqarish (State management), Tailwind CSS va animatsiyalarni chuqur o'rganish.",
+    "who_desc": "Frontend dasturlash menga shunchaki kod yozish emas, balki odamlar uchun qulay narsa yaratish. Mars IT School’da o’qib, React, Tailwind CSS va JavaScript bilan real loyihalar ustida ishlayapman. Murakkab g’oyani oddiy va chiroyli interfeysga aylantirganda eng katta zavq olaman.",
+    "focus_label": "Asosiy yo'nalishlar",
+    "focus": [
+      "React ekotizimi",
+      "Zamonaviy UI/UX",
+      "Responsive dizayn",
+      "Toza kod"
+    ],
     "values_title": "Mening tamoyillarim",
     "values": {
       "clean": "Toza va tushunarli kod",
-      "clean_desc": "O'qilishi oson, modulli va kelajakda kengaytirilishi qulay bo'lgan kod yozish.",
-      "responsive": "100% Moslashuvchanlik",
-      "responsive_desc": "Smartfondan tortib 4K monitorlargacha mukammal ko'rinish va qulaylik.",
-      "performance": "Tezkorlik va Sifat",
-      "performance_desc": "Yuqori yuklanish tezligi, SEO va eng yaxshi foydalanuvchi tajribasi (UX)."
+      "clean_desc": "O'qilishi oson, modulli va kelajakda kengaytirishga qulay kod yozaman.",
+      "responsive": "100% moslashuvchanlik",
+      "responsive_desc": "Telefondan tortib katta monitorlargacha bir xil sifatli ko'rinish.",
+      "performance": "Tezkorlik va sifat",
+      "performance_desc": "Yengil interfeys, tez yuklanish va silliq animatsiyalar."
+    }
+  },
+  "skills": {
+    "label": "KO'NIKMALAR",
+    "title_part1": "Mening",
+    "title_part2": "asboblar to'plamim",
+    "subtitle": "Har kuni o'rganib, amaliyotda qo'llayotgan texnologiyalar. Asosiylari — React, Tailwind CSS va JavaScript.",
+    "core_title": "Asosiy ko'nikmalar",
+    "core_desc": "Darajalar amaliy loyihalar tajribasiga asoslangan.",
+    "groups": {
+      "frontend": "Frontend",
+      "data": "Ma'lumotlar",
+      "tools": "Asboblar",
+      "ai": "Sun'iy intellekt"
     }
   },
   "projects": {
     "label": "LOYIHALAR",
     "title_part1": "Tanlangan",
-    "title_part2": "Ishlar",
-    "filter_all": "Barchasi",
-    "filter_web": "Veb Ilovalar",
-    "filter_react": "React",
-    "filter_tools": "Asboblar",
-    "live_demo": "Jonli ko'rish",
-    "source_code": "GitHub Kodi",
+    "title_part2": "ishlar",
+    "subtitle": "Amaliyot davomida yaratilgan real loyihalar. Har biri responsiv va zamonaviy stack asosida qurilgan.",
+    "filters": {
+      "all": "Barchasi",
+      "web": "Veb platformalar",
+      "stack": "Starter stack"
+    },
+    "live_demo": "Demo",
+    "source_code": "GitHub",
+    "featured": "Tanlangan",
+    "view_all": "Barchasini GitHub'da ko'rish",
+    "types": {
+      "web": "veb-platforma",
+      "stack": "starter stack"
+    },
     "items": {
-      "weather": {
-        "title": "Weather App (Ob-havo)",
-        "desc": "Dunyo shaharlari uchun real vaqt ob-havo ma'lumotlari, 5 kunlik prognoz va shamol tezligini ko'rsatuvchi interaktiv ilova."
-      },
-      "uniikost": {
-        "title": "Uniikost (Real Estate)",
-        "desc": "Ko'chmas mulk e'lonlari, narxlar bo'yicha saralash, qulay qidiruv va filtrga ega premium ko'chmas mulk platformasi."
-      },
-      "currency": {
-        "title": "Currency Converter",
-        "desc": "Markaziy banklar va jahon valyuta kurslari asosida real vaqt rejimida hisob-kitob qiluvchi tezkor konvertor."
-      },
-      "contact": {
-        "title": "Contact App (CRM)",
-        "desc": "Mijozlar kontaktlarini saqlash, qidirish, tahrirlash va guruhlarga ajratish uchun maxsus CRM boshqaruv tizimi."
-      },
-      "portfolio": {
-        "title": "Portfolio Site",
-        "desc": "React 19, Tailwind CSS, Framer Motion va Canvas yulduzlar animatsiyasiga ega shaxsiy portfolio veb-sayti."
-      },
       "dachahub": {
         "title": "DachaHub",
-        "desc": "O'zbekistondagi eng yaxshi dacha va dam olish maskanlarini topish, ko'rish va bron qilish uchun zamonaviy platforma."
+        "desc": "O'zbekistondagi dacha va dam olish maskanlarini topish, ko'rish va bron qilish uchun zamonaviy platforma."
       },
       "turarzone": {
         "title": "TurarZone",
-        "desc": "Talabalar uchun uy-joy va arzon ijara variantlarini tezkor topishga yordam beruvchi qulay platforma."
+        "desc": "Talabalar uchun arzon uy-joy va ijara variantlarini tez topishga yordam beruvchi qulay platforma."
       },
-      "title": "TurarZone",
-      "desc": "Talabalar uchun uy-joy va arzon ijara variantlarini tezkor topishga yordam beruvchi qulay platforma."
+      "supabase": {
+        "title": "React Tailwind Supabase",
+        "desc": "Autentifikatsiya, ma'lumotlar bazasi va tayyor UI komponentlarga ega zamonaviy starter stack."
+      }
+    }
+  },
+  "experience": {
+    "label": "TAJRIBA VA TA'LIM",
+    "title_part1": "O'sish",
+    "title_part2": "yo'lim",
+    "subtitle": "O'rganish, amaliyot va real loyihalar orqali bosib o'tgan yo'lim.",
+    "types": {
+      "work": "Tajriba",
+      "education": "Ta'lim"
+    },
+    "timeline": {
+      "freelance": {
+        "title": "Junior Frontend Developer",
+        "org": "Mustaqil loyihalar",
+        "desc": "DachaHub va TurarZone kabi veb-platformalarni React va Tailwind CSS yordamida yaratdim: interfeys arxitekturasi, komponentlar, responsiv layout va deploy."
+      },
+      "mars": {
+        "title": "Frontend Dasturlash",
+        "org": "Mars IT School",
+        "desc": "HTML, CSS, JavaScript va React asoslarini intensiv o'rganish. Komponentlar, state, routing, API bilan ishlash va zamonaviy UI amaliyotlari."
+      },
+      "self": {
+        "title": "Veb asoslari",
+        "org": "Mustaqil ta'lim",
+        "desc": "HTML va CSS asoslaridan boshlab, moslashuvchan layoutlar va Git bilan ishlashni o'rgandim. Hozir ham doimiy ravishda yangi texnologiyalarni o'rganaman."
+      }
+    },
+    "certificates_title": "Sertifikatlar",
+    "certificate": {
+      "name": "Frontend Development",
+      "org": "Mars IT School",
+      "status": "Ta'lim davom etmoqda"
+    },
+    "achievements_title": "Yutuqlar",
+    "achievements": {
+      "realProjects": {
+        "title": "Real loyihalar",
+        "desc": "Ishga tushirilgan 3+ veb-loyiha"
+      },
+      "responsive": {
+        "title": "Responsive",
+        "desc": "Barcha qurilmalarga moslashgan"
+      },
+      "multilingual": {
+        "title": "Ko'p tilli",
+        "desc": "UZ · EN · RU interfeys"
+      },
+      "cleanCode": {
+        "title": "Toza kod",
+        "desc": "Modulli va qayta ishlatiladigan"
+      }
     }
   },
   "contact": {
+    "label": "ALOQA",
     "title_part1": "Keling,",
-    "title_part2": "Bog'lanamiz",
-    "subtitle": "Yangi loyihalar, hamkorlik, ish takliflari yoki shunchaki fikr almashish uchun doim ochiqman.",
-    "phone": "Telefon raqam",
-    "email": "Elektron pochta",
-    "telegram": "Telegram profil",
-    "linkedin": "LinkedIn tarmog'i",
-    "github": "GitHub ombori",
+    "title_part2": "bog'lanamiz",
+    "subtitle": "Yangi loyiha, hamkorlik yoki ish taklifi bo'lsa — xabar yuboring. Imkon qadar tez javob beraman.",
+    "phone": "Telefon",
+    "email": "Email",
+    "telegram": "Telegram",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "location": "Manzil",
     "form_title": "Xabar yuborish",
     "form_name": "Ismingiz",
-    "form_name_placeholder": "Jasur...",
+    "form_name_placeholder": "Ismingizni yozing",
     "form_email": "Email manzilingiz",
-    "form_email_placeholder": "jasur@example.com",
+    "form_email_placeholder": "siz@example.com",
     "form_message": "Xabaringiz",
     "form_message_placeholder": "Loyiha yoki taklifingiz haqida yozing...",
-    "form_submit": "Xabarni yuborish",
-    "form_success": "Rahmat! Xabaringiz muvaffaqiyatli yuborildi."
+    "form_submit": "Telegram orqali yuborish",
+    "form_success": "Rahmat! Xabaringiz Telegram orqali yuborildi.",
+    "send_email": "Email yozish",
+    "send_telegram": "Telegramda yozish",
+    "errors": {
+      "name": "Ismingizni kiriting (kamida 2 ta belgi).",
+      "email": "To'g'ri email manzil kiriting.",
+      "message": "Xabar kamida 10 ta belgidan iborat bo'lishi kerak."
+    }
+  },
+  "order": {
+    "cta": "Buyurtma berish",
+    "cta_short": "Buyurtma",
+    "menu_hint": "Qisqa brief qoldiring",
+    "badge": "YANGI LOYIHA",
+    "title": "Loyihangizni birga boshlaymiz",
+    "subtitle": "Qisqacha ma'lumot qoldiring — Telegram orqali tez javob beraman.",
+    "name": "Ismingiz",
+    "name_placeholder": "Ism yoki kompaniya",
+    "contact": "Aloqa uchun",
+    "contact_placeholder": "@username, telefon yoki email",
+    "type": "Loyiha turi",
+    "types": {
+      "landing": "Landing page",
+      "portfolio": "Portfolio",
+      "webapp": "Web ilova",
+      "other": "Boshqa"
+    },
+    "budget": "Budjet (ixtiyoriy)",
+    "budget_placeholder": "Masalan: $300 – $500",
+    "message": "Loyiha haqida",
+    "message_placeholder": "Maqsad, sahifalar, misollar yoki referenslar...",
+    "note": "Ma'lumotlaringiz faqat buyurtmani muhokama qilish uchun ishlatiladi.",
+    "submit": "Telegram orqali yuborish",
+    "success_title": "So'rov tayyor!",
+    "success_desc": "Telegram ochildi — xabarni yuborish bilan buyurtmani tasdiqlaysiz.",
+    "success_hint": "Agar Telegram oynasi ochilmasa, quyidagi tugma orqali qayta urinib ko'ring.",
+    "open_telegram": "Telegramni ochish",
+    "close": "Yopish",
+    "errors": {
+      "name": "Ismingizni kiriting (kamida 2 ta belgi).",
+      "contact": "Telegram username, telefon yoki email kiriting.",
+      "type": "Loyiha turini tanlang.",
+      "message": "Loyiha haqida kamida 10 ta belgi yozing."
+    }
   },
   "footer": {
-    "copyright": "© 2026 Erkinov Jasur. Barcha huquqlar himoyalangan.",
-    "built_with": "React · Tailwind CSS · Framer Motion yordamida yaratildi",
+    "tagline": "G'oyalarni zamonaviy, tezkor va chiroyli interfeyslarga aylantiraman.",
     "quick_links": "Tezkor havolalar",
     "contact": "Bog'lanish",
-    "location": "Toshkent, O'zbekiston",
     "rights": "Barcha huquqlar himoyalangan.",
-    "made": "Yaratildi",
-    "with": "bilan"
-  },
-  "services": {
-    "label": "XIZMATLAR",
-    "title_part1": "Sayt tayyorlash",
-    "title_part2": "narxlari",
-    "subtitle": "Landing page, portfolio yoki biznes uchun mukammal va tezkor saytlar. Sifatli dizayn, animatsiyalar va to'liq responsive — hammasi bir joyda.",
-    "popular": "Eng mashhur",
-    "contact": "Loyihani boshlash",
-    "timeline": "Muddat",
-    "items": [
-      {
-        "name": "Landing Page",
-        "desc": "Mahsulot yoki xizmatni sotish uchun bir sahifali tezkor sayt.",
-        "price": "1 500 000",
-        "unit": "so'm",
-        "delivery": "3–5 kun",
-        "features": [
-          "1 sahifa + responsiv",
-          "Zamonaviy animatsiyalar",
-          "Aloqa formasi (Telegram)",
-          "Asosiy SEO sozlamalari",
-          "1 marta tuzatish"
-        ]
-      },
-      {
-        "name": "Portfolio sayt",
-        "desc": "Shaxsiy brendingiz uchun premium darajadagi portfolio.",
-        "price": "2 500 000",
-        "unit": "so'm",
-        "delivery": "5–7 kun",
-        "features": [
-          "4 tagacha bo'lim",
-          "Dark / Light rejim",
-          "Ko'p tilli tizim",
-          "Animatsiyalar va 3D effektlar",
-          "SEO + tezlik optimizatsiyasi"
-        ],
-        "popular": true
-      },
-      {
-        "name": "Biznes sayt",
-        "desc": "Kompaniya uchun ko'p sahifali professional veb-sayt.",
-        "price": "5 000 000",
-        "unit": "so'm",
-        "delivery": "10–14 kun",
-        "features": [
-          "6 tagacha sahifa",
-          "Admin panel / CMS",
-          "Ko'p tilli qo'llab-quvvatlash",
-          "Murakkab animatsiyalar",
-          "2 oy bepul yordam"
-        ]
-      },
-      {
-        "name": "Web ilova",
-        "desc": "Murakkab funksiyali custom web platforma va dashboard.",
-        "price": "9 000 000",
-        "unit": "so'mdan",
-        "delivery": "Kelishilgan",
-        "features": [
-          "Custom arxitektura",
-          "Auth va ma'lumotlar bazasi",
-          "API integratsiyalar",
-          "Admin dashboard",
-          "Uzoq muddatli support"
-        ]
-      },
-      {
-        "name": "Onlayn do'kon",
-        "desc": "Mahsulotlarni sotish uchun to'liq funksiyali e-commerce sayt.",
-        "price": "7 500 000",
-        "unit": "so'm",
-        "delivery": "14–20 kun",
-        "features": [
-          "Mahsulot katalogi",
-          "Savat va buyurtma",
-          "To'lov tizimi integratsiyasi",
-          "Admin panel",
-          "SEO optimizatsiya"
-        ]
-      },
-      {
-        "name": "Custom loyiha",
-        "desc": "Sizning g'oyangiz uchun individual web yechim.",
-        "price": "Kelishilgan",
-        "unit": "",
-        "delivery": "Loyihaga qarab",
-        "features": [
-          "To'liq custom dizayn",
-          "Cheksiz imkoniyatlar",
-          "API va integratsiyalar",
-          "Scalable arxitektura",
-          "Doimiy hamkorlik"
-        ]
-      }
-    ],
-    "addons_title": "Qo'shimcha xizmatlar",
-    "addons": [
-      {
-        "name": "Qo'shimcha sahifa",
-        "price": "500 000 so'm"
-      },
-      {
-        "name": "Kopira yt / matn yozish",
-        "price": "300 000 so'm"
-      },
-      {
-        "name": "Tezlik optimizatsiyasi",
-        "price": "400 000 so'm"
-      },
-      {
-        "name": "Oylik texnik support",
-        "price": "250 000 so'm / oy"
-      }
-    ],
-    "process_title": "Qanday ishlaymiz?",
-    "steps": [
-      {
-        "title": "Brief & reja",
-        "desc": "Maqsad, auditoriya va talablarni aniqlaymiz."
-      },
-      {
-        "title": "Dizayn",
-        "desc": "Figma da zamonaviy UI/UX prototip tayyorlaymiz."
-      },
-      {
-        "title": "Dasturlash",
-        "desc": "React va Tailwind bilan tezkor kod yozamiz."
-      },
-      {
-        "title": "Ishga tushirish",
-        "desc": "Test, optimizatsiya va deploy qilamiz."
-      }
-    ],
-    "note": "Aniq narx loyiha hajmi va talablariga qarab belgilanadi. Bepul maslahat uchun bog'laning.",
-    "select": "Tanlash",
-    "selected": "Tanlandi",
-    "selected_title": "Tanlangan paket",
-    "clear": "Bekor qilish",
-    "hint": "Sayt turini tanlang — narxi va muddatini ko'ring."
+    "built_with": "React va Tailwind CSS yordamida yaratildi"
   }
 }

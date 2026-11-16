@@ -4,22 +4,31 @@ import uz from './locales/uz.json';
 import en from './locales/en.json';
 import ru from './locales/ru.json';
 
-const savedLang = localStorage.getItem('portfolio_lang') || 'uz';
+const supported = ['uz', 'en', 'ru'];
 
-i18n
-  .use(initReactI18next)
-  .init({
-    resources: {
-      uz: { translation: uz },
-      en: { translation: en },
-      ru: { translation: ru },
-    },
-    lng: savedLang,
-    fallbackLng: 'uz',
-    interpolation: {
-      escapeValue: false,
-    },
-  });
+const detectLanguage = () => {
+  const saved = localStorage.getItem('portfolio_lang');
+  if (supported.includes(saved)) return saved;
+  const system = navigator.language?.slice(0, 2);
+  return supported.includes(system) ? system : 'uz';
+};
+
+const initialLanguage = detectLanguage();
+
+i18n.use(initReactI18next).init({
+  resources: {
+    uz: { translation: uz },
+    en: { translation: en },
+    ru: { translation: ru },
+  },
+  lng: initialLanguage,
+  fallbackLng: 'uz',
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
+document.documentElement.lang = initialLanguage;
 
 i18n.on('languageChanged', (lng) => {
   localStorage.setItem('portfolio_lang', lng);

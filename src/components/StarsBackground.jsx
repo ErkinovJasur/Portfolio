@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../contexts/themeStore';
 
 export default function StarsBackground() {
   const canvasRef = useRef(null);
@@ -41,7 +41,7 @@ export default function StarsBackground() {
     const STAR_COUNT = Math.min(Math.floor((width * height) / 7000), 160);
     let stars = [];
 
-    const colors = ['#ffffff', '#e0e7ff', '#c7d2fe', '#ddd6fe', '#fbcfe8'];
+    const colors = ['#ffffff', '#fef9c3', '#fde68a', '#facc15', '#fef3c7'];
 
     const initStars = () => {
       stars = [];
@@ -82,8 +82,8 @@ export default function StarsBackground() {
         height * 0.25,
         width * 0.4
       );
-      grad1.addColorStop(0, 'rgba(59, 130, 246, 0.04)');
-      grad1.addColorStop(1, 'rgba(59, 130, 246, 0)');
+      grad1.addColorStop(0, 'rgba(250, 204, 21, 0.045)');
+      grad1.addColorStop(1, 'rgba(250, 204, 21, 0)');
       ctx.fillStyle = grad1;
       ctx.fillRect(0, 0, width, height);
 
@@ -95,8 +95,8 @@ export default function StarsBackground() {
         height * 0.7,
         width * 0.4
       );
-      grad2.addColorStop(0, 'rgba(168, 85, 247, 0.04)');
-      grad2.addColorStop(1, 'rgba(168, 85, 247, 0)');
+      grad2.addColorStop(0, 'rgba(245, 158, 11, 0.035)');
+      grad2.addColorStop(1, 'rgba(245, 158, 11, 0)');
       ctx.fillStyle = grad2;
       ctx.fillRect(0, 0, width, height);
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Phone,
   Mail,
@@ -8,283 +8,370 @@ import {
   Copy,
   Check,
   ArrowUpRight,
+  AlertCircle,
   MessageSquare,
-  Sparkles,
+  MapPin,
 } from 'lucide-react';
+import { profile } from '../data/content';
+import SectionHeading from './SectionHeading';
+import { GithubIcon, LinkedinIcon, TelegramIcon } from './Icons';
 
-function GithubIcon({ className = 'w-5 h-5' }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-      />
-    </svg>
-  );
-}
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function LinkedinIcon({ className = 'w-5 h-5' }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.66 1.66 0 1 0 0 3.32 1.66 1.66 0 0 0 0-3.32z" />
-    </svg>
-  );
-}
+const fade = (delay = 0) => ({
+  initial: { opacity: 0, y: 16 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-50px' },
+  transition: { duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] },
+});
 
 export default function Contact() {
   const { t } = useTranslation();
-  const [copiedKey, setCopiedKey] = useState(null);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [copied, setCopied] = useState(null);
 
-  const copy = (text, key) => {
-    navigator.clipboard?.writeText(text);
-    setCopiedKey(key);
-    setTimeout(() => setCopiedKey(null), 1800);
+  const validateField = (field, values = form) => {
+    const value = values[field].trim();
+    if (field === 'name' && value.length < 2) return t('contact.errors.name');
+    if (field === 'email' && !emailPattern.test(value)) return t('contact.errors.email');
+    if (field === 'message' && value.length < 10) return t('contact.errors.message');
+    return '';
   };
 
-  const submit = (e) => {
-    e.preventDefault();
-    if (!form.name || !form.email || !form.message) return;
-    const text = `👋 New message (Portfolio):\n👤 Name: ${form.name}\n📧 Email: ${form.email}\n💬 Message: ${form.message}`;
-    window.open(`https://t.me/timurovccc?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+  const validateAll = () => ({
+    name: validateField('name'),
+    email: validateField('email'),
+    message: validateField('message'),
+  });
+
+  const onChange = (field, value) => {
+    const next = { ...form, [field]: value };
+    setForm(next);
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: validateField(field, next) }));
+    }
+  };
+
+  const onBlur = (field) => {
+    setErrors((prev) => ({ ...prev, [field]: validateField(field) }));
+  };
+
+  const submit = (event) => {
+    event.preventDefault();
+    const next = validateAll();
+    setErrors(next);
+    if (next.name || next.email || next.message) return;
+
+    const text = [
+      'Portfolio orqali yangi xabar:',
+      '',
+      `Ism: ${form.name.trim()}`,
+      `Email: ${form.email.trim()}`,
+      '',
+      form.message.trim(),
+    ].join('\n');
+
+    window.open(
+      `${profile.telegramUrl}?text=${encodeURIComponent(text)}`,
+      '_blank',
+      'noopener,noreferrer'
+    );
     setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setForm({ name: '', email: '', message: '' });
-    }, 4000);
+    setForm({ name: '', email: '', message: '' });
+    setTimeout(() => setSubmitted(false), 6000);
   };
 
-  const contacts = [
+  const copy = (value, key) => {
+    navigator.clipboard?.writeText(value);
+    setCopied(key);
+    setTimeout(() => setCopied(null), 1800);
+  };
+
+  const contactItems = [
     {
-      key: 'phone',
-      title: t('contact.phone'),
-      value: '+998 90 066 68 52',
-      href: 'tel:+998900666852',
-      icon: Phone,
-      action: 'copy',
+      key: 'telegram',
+      title: 'Telegram',
+      value: profile.telegram,
+      href: profile.telegramUrl,
+      icon: TelegramIcon,
+      color: '#C8925A',
     },
     {
       key: 'email',
       title: t('contact.email'),
-      value: 'erkinovjasur80@gmail.com',
-      href: 'mailto:erkinovjasur80@gmail.com',
+      value: profile.email,
+      href: `mailto:${profile.email}`,
       icon: Mail,
-      action: 'copy',
-    },
-    {
-      key: 'telegram',
-      title: t('contact.telegram'),
-      value: '@timurovccc',
-      href: 'https://t.me/timurovccc',
-      icon: Send,
-      action: 'link',
+      copyable: true,
+      color: '#D9A877',
     },
     {
       key: 'linkedin',
-      title: t('contact.linkedin'),
-      value: 'linkedin.com/in/erkinov-jasur',
-      href: 'https://www.linkedin.com/in/jasur-erkinov-11bb4b3a4/',
+      title: 'LinkedIn',
+      value: profile.linkedin,
+      href: profile.linkedinUrl,
       icon: LinkedinIcon,
-      action: 'link',
+      color: '#C8925A',
+    },
+    {
+      key: 'phone',
+      title: t('contact.phone'),
+      value: profile.phone,
+      href: profile.phoneHref,
+      icon: Phone,
+      copyable: true,
+      color: '#D9A877',
     },
     {
       key: 'github',
-      title: t('contact.github'),
-      value: 'github.com/erkinovjasur',
-      href: 'https://github.com/erkinovjasur',
+      title: 'GitHub',
+      value: profile.github,
+      href: profile.githubUrl,
       icon: GithubIcon,
-      action: 'link',
+      color: '#9E8D7F',
     },
   ];
 
   return (
-    <section id="contact" className="relative py-24 sm:py-32 px-4 sm:px-6">
-      <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16"
-        >
-          <span className="eyebrow mb-4">{t('nav.contact')}</span>
-          <h2 className="font-heading text-3xl sm:text-5xl font-bold text-main mt-4 mb-4">
-            {t('contact.title_part1')}{' '}
-            <span className="gradient-text">{t('contact.title_part2')}</span>
-          </h2>
-          <p className="text-dim max-w-xl mx-auto text-[15px] sm:text-base">
-            {t('contact.subtitle')}
-          </p>
+    <section id="contact" className="relative py-20 sm:py-28">
+      <div className="mx-auto w-full max-w-[1140px] px-5 sm:px-8">
+        <motion.div {...fade()}>
+          <SectionHeading
+            index="05"
+            label={t('contact.label')}
+            title={
+              <>
+                {t('contact.title_part1')}{' '}
+                <span className="font-serif-accent text-[var(--accent)] font-normal italic">
+                  {t('contact.title_part2')}
+                </span>
+              </>
+            }
+            description={t('contact.subtitle')}
+          />
         </motion.div>
 
-        <div className="grid lg:grid-cols-12 gap-5 items-start">
-          {/* Contact cards */}
-          <div className="lg:col-span-6 space-y-3">
-            {contacts.map((item, i) => {
-              const Icon = item.icon;
-              const isCopied = copiedKey === item.key;
-              return (
-                <motion.div
-                  key={item.key}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
-                  className="surface surface-hover rounded-[1.4rem] p-4 sm:p-5 flex items-center justify-between gap-4"
-                >
-                  <div className="flex items-center gap-3.5 min-w-0">
-                    <div
-                      className="w-11 h-11 shrink-0 rounded-2xl flex items-center justify-center"
-                      style={{
-                        background: 'color-mix(in srgb, var(--accent) 12%, transparent)',
-                        border: '1px solid color-mix(in srgb, var(--accent) 24%, transparent)',
-                        color: 'var(--accent)',
-                      }}
-                    >
-                      <Icon className="w-[18px] h-[18px]" />
-                    </div>
-                    <div className="min-w-0">
-                      <span className="block text-[10px] uppercase font-semibold tracking-[0.18em] text-dim mb-0.5">
-                        {item.title}
-                      </span>
-                      <a
-                        href={item.href}
-                        target={item.href.startsWith('http') ? '_blank' : '_self'}
-                        rel="noopener noreferrer"
-                        className="font-semibold text-[13.5px] sm:text-sm text-main hover:opacity-70 transition-opacity truncate block"
-                      >
-                        {item.value}
-                      </a>
-                    </div>
-                  </div>
-
-                  {item.action === 'copy' ? (
-                    <button
-                      onClick={() => copy(item.value, item.key)}
-                      className="icon-btn h-9 px-3 text-[11px] font-semibold gap-1.5 shrink-0"
-                      title="Copy"
-                    >
-                      {isCopied ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-emerald-500" />
-                          <span className="text-emerald-500">Copied</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
-                  ) : (
-                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="icon-btn w-9 h-9 shrink-0">
-                      <ArrowUpRight className="w-4 h-4" />
-                    </a>
-                  )}
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Form */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="lg:col-span-6 surface rounded-[1.75rem] p-6 sm:p-8 relative overflow-hidden"
-          >
-            <div
-              className="absolute -top-24 -right-20 w-56 h-56 rounded-full blur-3xl"
-              style={{ background: 'var(--glow)' }}
-            />
-            <div className="relative">
-              <div className="flex items-center gap-3 mb-6">
-                <div
-                  className="w-10 h-10 rounded-2xl flex items-center justify-center"
-                  style={{
-                    background: 'color-mix(in srgb, var(--accent) 14%, transparent)',
-                    border: '1px solid color-mix(in srgb, var(--accent) 28%, transparent)',
-                    color: 'var(--accent)',
-                  }}
-                >
-                  <MessageSquare className="w-[18px] h-[18px]" />
+        {/* Contact Container */}
+        <motion.div
+          {...fade(0.06)}
+          className="brown-card mt-12 overflow-hidden border shadow-2xl"
+          style={{ borderColor: 'var(--line)' }}
+        >
+          <div className="grid lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[var(--line)]">
+            {/* Left: Contact Info */}
+            <div className="p-6 sm:p-9 lg:col-span-5 flex flex-col justify-between space-y-6">
+              <div>
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--accent)]"
+                    style={{ background: 'var(--surface-2)' }}
+                  >
+                    <MessageSquare className="h-4 w-4" />
+                  </span>
+                  <h4 className="font-heading text-[17px] font-bold text-main">
+                    {t('footer.contact')}
+                  </h4>
                 </div>
-                <h3 className="font-heading font-semibold text-xl sm:text-2xl text-main">
-                  {t('contact.form_title')}
-                </h3>
+
+                <p className="mt-2 text-[13px] text-dim">
+                  Bir klik orqali bog'laning yoki ma'lumotlarni nusxa oling.
+                </p>
+
+                <div className="mt-6 space-y-3">
+                  {contactItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={item.key}
+                        className="flex items-center justify-between gap-3 rounded-xl p-3 border transition-colors hover:border-[var(--line-strong)]"
+                        style={{
+                          background: 'var(--surface-2)',
+                          borderColor: 'var(--line)',
+                        }}
+                      >
+                        <div className="flex min-w-0 items-center gap-3">
+                          <span
+                            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[#18110D] shadow-xs"
+                            style={{
+                              background: 'linear-gradient(135deg, #D9A877 0%, #C8925A 100%)',
+                            }}
+                          >
+                            <Icon className="h-4 w-4" />
+                          </span>
+                          <div className="min-w-0">
+                            <span className="block text-[10px] font-mono font-semibold text-dim uppercase tracking-wider">
+                              {item.title}
+                            </span>
+                            <a
+                              href={item.href}
+                              target={item.href.startsWith('http') ? '_blank' : undefined}
+                              rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                              className="mt-0.5 block truncate text-[13.5px] font-bold text-main hover:text-[var(--accent)] transition-colors"
+                            >
+                              {item.value}
+                            </a>
+                          </div>
+                        </div>
+
+                        {item.copyable ? (
+                          <button
+                            type="button"
+                            onClick={() => copy(item.value, item.key)}
+                            className="icon-btn h-8 w-8 shrink-0"
+                            title={t('common.copy')}
+                          >
+                            {copied === item.key ? (
+                              <Check className="h-3.5 w-3.5 text-[var(--accent)]" />
+                            ) : (
+                              <Copy className="h-3.5 w-3.5" />
+                            )}
+                          </button>
+                        ) : (
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="icon-btn h-8 w-8 shrink-0"
+                            title={item.title}
+                          >
+                            <ArrowUpRight className="h-3.5 w-3.5" />
+                          </a>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
 
-              <form onSubmit={submit} className="space-y-4">
+              {/* Status pill & location */}
+              <div
+                className="rounded-xl p-4 border flex items-center justify-between gap-3"
+                style={{
+                  background: 'var(--surface-translucent)',
+                  borderColor: 'var(--line)',
+                }}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D9A877] opacity-75" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#C8925A]" />
+                  </span>
+                  <div className="text-[12px]">
+                    <span className="font-bold text-main block">{t('hero.status')}</span>
+                    <span className="text-dim text-[11px]">Javob berish vaqti: tezkor</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1 text-[11.5px] font-mono text-dim">
+                  <MapPin className="h-3.5 w-3.5 text-[var(--accent)]" />
+                  <span>Toshkent</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Modern Contact Form */}
+            <div className="p-6 sm:p-9 lg:col-span-7">
+              <h4 className="font-heading text-[18px] font-bold text-main">
+                {t('contact.form_title')}
+              </h4>
+              <p className="mt-1 text-[13px] text-dim">
+                Xabaringiz to'g'ridan-to'g'ri Telegramimga yetib boradi.
+              </p>
+
+              <form onSubmit={submit} className="mt-6 space-y-4">
                 <div>
-                  <label className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-dim mb-1.5">
+                  <label className="block text-[12px] font-semibold text-main mb-1.5">
                     {t('contact.form_name')}
                   </label>
                   <input
                     type="text"
-                    required
                     value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    onChange={(e) => onChange('name', e.target.value)}
+                    onBlur={() => onBlur('name')}
                     placeholder={t('contact.form_name_placeholder')}
-                    className="field"
+                    className={`field ${errors.name ? 'field-error' : ''}`}
+                    maxLength={80}
                   />
+                  {errors.name && (
+                    <p className="mt-1 flex items-center gap-1 text-[11.5px] text-rose-400 font-medium">
+                      <AlertCircle className="h-3.5 w-3.5" />
+                      {errors.name}
+                    </p>
+                  )}
                 </div>
+
                 <div>
-                  <label className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-dim mb-1.5">
+                  <label className="block text-[12px] font-semibold text-main mb-1.5">
                     {t('contact.form_email')}
                   </label>
                   <input
                     type="email"
-                    required
                     value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    onChange={(e) => onChange('email', e.target.value)}
+                    onBlur={() => onBlur('email')}
                     placeholder={t('contact.form_email_placeholder')}
-                    className="field"
+                    className={`field ${errors.email ? 'field-error' : ''}`}
+                    maxLength={120}
                   />
+                  {errors.email && (
+                    <p className="mt-1 flex items-center gap-1 text-[11.5px] text-rose-400 font-medium">
+                      <AlertCircle className="h-3.5 w-3.5" />
+                      {errors.email}
+                    </p>
+                  )}
                 </div>
+
                 <div>
-                  <label className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-dim mb-1.5">
+                  <label className="block text-[12px] font-semibold text-main mb-1.5">
                     {t('contact.form_message')}
                   </label>
                   <textarea
-                    required
-                    rows="4"
+                    rows={4}
                     value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    onChange={(e) => onChange('message', e.target.value)}
+                    onBlur={() => onBlur('message')}
                     placeholder={t('contact.form_message_placeholder')}
-                    className="field resize-none"
+                    className={`field ${errors.message ? 'field-error' : ''}`}
+                    maxLength={1000}
                   />
+                  {errors.message && (
+                    <p className="mt-1 flex items-center gap-1 text-[11.5px] text-rose-400 font-medium">
+                      <AlertCircle className="h-3.5 w-3.5" />
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
 
-                <button type="submit" className="w-full btn-primary py-3.5 text-sm">
-                  <Send className="w-4 h-4" />
-                  {t('contact.form_submit')}
-                </button>
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    className="btn-primary w-full py-3 text-[14px] font-semibold rounded-xl"
+                  >
+                    <Send className="h-4 w-4" />
+                    <span>{t('contact.form_submit')}</span>
+                  </button>
+                </div>
 
-                <AnimatePresence>
-                  {submitted && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      className="p-3 rounded-xl text-[12px] font-medium flex items-center gap-2"
-                      style={{
-                        background: 'color-mix(in srgb, #10b981 14%, transparent)',
-                        border: '1px solid color-mix(in srgb, #10b981 35%, transparent)',
-                        color: '#10b981',
-                      }}
-                    >
-                      <Sparkles className="w-4 h-4" />
-                      {t('contact.form_success')}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {submitted && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="rounded-xl p-3.5 text-center text-[12.5px] font-semibold border"
+                    style={{
+                      background: 'rgba(200, 146, 90, 0.15)',
+                      borderColor: 'var(--accent)',
+                      color: 'var(--accent)',
+                    }}
+                  >
+                    ✓ {t('contact.form_success')}
+                  </motion.div>
+                )}
               </form>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

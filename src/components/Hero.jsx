@@ -1,123 +1,151 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowRight,
-  Mail,
+  ArrowDown,
+  ArrowUpRight,
   Sparkles,
+  MapPin,
+  Clock,
   Terminal,
-  CheckCircle2,
-  Flame,
+  FileCode,
+  Braces,
   Copy,
   Check,
-  MapPin,
-  Circle,
+  Send,
 } from 'lucide-react';
+import { profile, socials, stats } from '../data/content';
+import { SocialIcon } from './Icons';
 
-export default function Hero() {
+const stack = ['React 19', 'Tailwind CSS', 'JavaScript (ES6+)', 'Supabase', 'Git & GitHub', 'Vite', 'Figma', 'REST API', 'HTML5 & CSS3'];
+
+export default function Hero({ onOrder }) {
   const { t, i18n } = useTranslation();
   const [roleIndex, setRoleIndex] = useState(0);
-  const [copied, setCopied] = useState(false);
-  const ref = useRef(null);
+  const [time, setTime] = useState('');
+  const [activeTab, setActiveTab] = useState('code');
+  const [copiedCode, setCopiedCode] = useState(false);
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start'],
-  });
-  const yCard = useTransform(scrollYProgress, [0, 1], [0, -70]);
-  const opacityHero = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
-  const roles = t('hero.roles', { returnObjects: true }) || [
-    'Frontend Developer',
-    'React Specialist',
-    'UI/UX Craftsman',
-  ];
+  const roles = t('hero.roles', { returnObjects: true }) || ['Junior Frontend Developer'];
 
   useEffect(() => {
     const id = setInterval(() => {
-      setRoleIndex((p) => (p + 1) % roles.length);
-    }, 2800);
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 3200);
     return () => clearInterval(id);
   }, [roles.length]);
 
-  const copyCode = () => {
-    const code = `const developer = {
-  name: "Erkinov Jasur",
-  role: "Frontend Developer",
-  school: "Mars IT School",
-  stack: ["React", "Tailwind CSS", "Framer Motion"],
-  status: "available"
-};`;
-    navigator.clipboard?.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1800);
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        setTime(
+          new Intl.DateTimeFormat(i18n.language, {
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone: 'Asia/Tashkent',
+          }).format(new Date())
+        );
+      } catch {
+        setTime('');
+      }
+    };
+    updateTime();
+    const id = setInterval(updateTime, 20000);
+    return () => clearInterval(id);
+  }, [i18n.language]);
+
+  const copyCode = (text) => {
+    navigator.clipboard?.writeText(text);
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 2000);
+  };
+
+  const codeSnippets = {
+    code: `// developer.js — Erkinov Jasur
+export const developer = {
+  name: "${profile.name}",
+  role: "Junior Frontend Developer",
+  location: "${profile.location}",
+  status: "Open to new projects 🚀",
+  coreStack: ["React 19", "Tailwind CSS", "JavaScript", "Supabase"],
+  education: "Mars IT School (Frontend)",
+  hireable: true
+};`,
+    json: `{
+  "developer": "${profile.name}",
+  "technologies": [
+    "HTML5", "CSS3", "Tailwind CSS", 
+    "React", "JavaScript (ES6+)", "Supabase", "Git"
+  ],
+  "languages": ["O'zbekcha", "English", "Русский"],
+  "projects": ["DachaHub", "TurarZone", "React Supabase Starter"],
+  "responsive": "100%"
+}`,
+    terminal: `jasur@portfolio ~ % whoami
+Erkinov Jasur — Junior Frontend Developer
+
+jasur@portfolio ~ % cat goals.txt
+✓ Modern, fast & accessible web applications
+✓ Clean code, minimal aesthetics & smooth UX
+
+jasur@portfolio ~ % npm run build
+✓ 2225 modules transformed.
+✓ built in 1.1s — Ready for production 🚀`,
   };
 
   return (
-    <section
-      id="home"
-      ref={ref}
-      className="relative min-h-screen flex items-center overflow-hidden px-4 sm:px-6 pt-32 pb-20 sm:pt-36"
-    >
-      {/* Ambient orbs */}
-      <div className="glow-orb w-[420px] h-[420px] bg-indigo-500/30 top-[-8%] left-[8%]" />
-      <div
-        className="glow-orb w-[380px] h-[380px] bg-pink-500/25 bottom-[5%] right-[6%]"
-        style={{ animationDelay: '7s' }}
-      />
-      <div
-        className="glow-orb w-[300px] h-[300px] bg-purple-500/25 top-[45%] left-[45%]"
-        style={{ animationDelay: '13s' }}
-      />
+    <section id="home" className="relative overflow-hidden pt-24 pb-16 sm:pt-32 sm:pb-24">
+      <div className="relative mx-auto w-full max-w-[1140px] px-5 sm:px-8">
+        {/* Status Pill Badge */}
+        <div className="flex flex-col items-center text-center">
+         
 
-      <motion.div
-        style={{ opacity: opacityHero }}
-        className="relative z-10 mx-auto w-full max-w-6xl grid lg:grid-cols-12 gap-14 lg:gap-10 items-center"
-      >
-        {/* Left */}
-        <div className="lg:col-span-7 flex flex-col items-center text-center lg:items-start lg:text-left">
-          <motion.div
-            initial={{ opacity: 0, y: -14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="eyebrow inline-flex mb-6"
+          {/* Small Greeting */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-6 text-[13px] font-mono tracking-widest text-[var(--accent)] uppercase"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70 animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
-            {t('hero.badge')}
-          </motion.div>
+            {t('hero.greeting')}
+          </motion.p>
 
+          {/* Big Modern Headline with Serif Accent */}
           <motion.h1
-            initial={{ opacity: 0, y: 22 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.05 }}
-            className="font-heading text-[2.75rem] leading-[1.02] sm:text-6xl md:text-7xl font-bold tracking-tight mb-5 text-main"
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="flex gap-5 mt-2 font-heading text-[clamp(2.8rem,7.5vw,5.6rem)] font-extrabold leading-[1.0] tracking-[-0.035em]"
           >
-            <span className="block text-[1.35rem] sm:text-3xl font-medium mb-2 text-dim tracking-tight">
-              {t('hero.greeting')}
+            <span className="block text-main">{t('hero.title_first')}</span>
+            <span className="gradient-bronze-text block font-serif-accent font-normal italic tracking-normal">
+              {t('hero.title_last')}
             </span>
-            {t('hero.title_first')}{' '}
-            <span className="gradient-text">{t('hero.title_last')}</span>
           </motion.h1>
 
+          {/* Dynamic Role Switcher */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="flex items-center gap-2 text-lg sm:text-2xl font-semibold mb-6 h-9"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-4 flex items-center justify-center gap-2 text-[15px] sm:text-[17px]"
           >
-            <span className="text-dim font-medium text-base sm:text-lg">{t('hero.role_prefix')}</span>
-            <div className="relative overflow-hidden inline-flex text-left">
+            <span className="text-dim font-medium">{t('hero.role_prefix')}</span>
+            <div
+              className="relative inline-flex overflow-hidden rounded-full px-3.5 py-0.5 border"
+              style={{
+                background: 'var(--surface-2)',
+                borderColor: 'var(--line-strong)',
+              }}
+            >
               <AnimatePresence mode="wait">
                 <motion.span
-                  key={roleIndex + i18n.language}
-                  initial={{ y: 22, opacity: 0 }}
+                  key={`${roleIndex}-${i18n.language}`}
+                  initial={{ y: 16, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -22, opacity: 0 }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
-                  className="gradient-text font-bold"
+                  exit={{ y: -16, opacity: 0 }}
+                  transition={{ duration: 0.26, ease: 'easeOut' }}
+                  className="font-semibold text-[var(--accent-sand)]"
                 >
                   {roles[roleIndex]}
                 </motion.span>
@@ -125,166 +153,213 @@ export default function Hero() {
             </div>
           </motion.div>
 
+          {/* Slogan Description */}
           <motion.p
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="max-w-xl text-[15px] sm:text-[17px] leading-relaxed mb-9 text-dim"
+            transition={{ duration: 0.5, delay: 0.26 }}
+            className="mx-auto mt-4 max-w-xl text-[15px] sm:text-[17px] leading-relaxed text-dim"
           >
             {t('hero.description')}
           </motion.p>
 
+          {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-            className="flex flex-wrap items-center justify-center lg:justify-start gap-3 w-full sm:w-auto mb-10"
+            transition={{ duration: 0.5, delay: 0.32 }}
+            className="mt-8 flex flex-wrap items-center justify-center gap-3.5"
           >
-            <a href="#projects" className="btn-primary px-7 py-3.5 text-sm w-full sm:w-auto group">
-              {t('hero.view_projects')}
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <a href="#projects" className="btn-primary group px-6 py-2.5 text-[14px]">
+              <span>{t('hero.view_projects')}</span>
+              <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
             </a>
-            <a href="#contact" className="btn-secondary px-7 py-3.5 text-sm w-full sm:w-auto">
-              <Mail className="w-4 h-4" />
-              {t('hero.contact_me')}
+
+            <button
+              type="button"
+              onClick={onOrder}
+              className="btn-secondary group px-6 py-2.5 text-[14px]"
+            >
+              <Sparkles className="h-4 w-4 text-[var(--accent)]" />
+              <span>{t('order.cta')}</span>
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </button>
+
+            <a
+              href={profile.telegramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="icon-btn h-10 px-3.5 gap-2 rounded-full text-[13px] font-medium"
+            >
+              <Send className="h-3.5 w-3.5 text-[var(--accent)]" />
+              <span>Telegram</span>
             </a>
           </motion.div>
 
+          {/* Social Links Row */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 text-[12px] sm:text-[13px] font-medium text-dim"
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-6 flex items-center justify-center gap-2.5"
           >
-            <span className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-              13+ Tasks Done
-            </span>
-            <span className="flex items-center gap-2">
-              <Flame className="w-4 h-4 text-amber-500" />
-              6+ Web Projects
-            </span>
-            <span className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-pink-500" />
-              100% Responsive
-            </span>
+            {socials.map((social) => (
+              <a
+                key={social.id}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="icon-btn h-9 w-9"
+                aria-label={social.name}
+                title={social.name}
+              >
+                <SocialIcon id={social.icon} className="h-4 w-4" />
+              </a>
+            ))}
           </motion.div>
         </div>
 
-        {/* Right - layered glass profile */}
+        {/* Minimalist Code & Terminal Card */}
         <motion.div
-          style={{ y: yCard }}
-          initial={{ opacity: 0, scale: 0.96, y: 24 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="lg:col-span-5 w-full flex justify-center"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="brown-card mt-12 sm:mt-16 mx-auto max-w-[860px] overflow-hidden border shadow-2xl"
+          style={{ borderColor: 'var(--line-strong)' }}
         >
-          <div className="relative w-full max-w-[390px]">
-            {/* floating badge */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -top-5 -right-3 sm:-right-6 z-20 chip px-3 py-2 text-[11px]"
-              style={{ background: 'var(--glass-strong)' }}
-            >
-              <MapPin className="w-3.5 h-3.5" style={{ color: 'var(--accent)' }} />
-              Tashkent, UZ
-            </motion.div>
-
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute -bottom-5 -left-2 sm:-left-5 z-20 chip px-3 py-2 text-[11px]"
-              style={{ background: 'var(--glass-strong)' }}
-            >
-              <Circle className="w-2.5 h-2.5 fill-emerald-500 text-emerald-500" />
-              Open to work
-            </motion.div>
-
-            {/* Main card */}
-            <div className="surface rounded-[2rem] p-6 sm:p-7 relative overflow-hidden">
-              <div
-                className="absolute -top-24 -right-20 w-56 h-56 rounded-full blur-3xl"
-                style={{ background: 'var(--glow)' }}
-              />
-
-              <div className="relative flex items-center gap-4 mb-6">
-                <div className="relative">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 blur-md opacity-70" />
-                  <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[2px]">
-                    <div className="w-full h-full rounded-full flex items-center justify-center text-white font-heading font-bold text-xl"
-                      style={{ background: 'var(--bg-soft)' }}>
-                      <span className="gradient-text">EJ</span>
-                    </div>
-                  </div>
-                  <span className="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-emerald-500 border-[3px]"
-                    style={{ borderColor: 'var(--bg-soft)' }} />
-                </div>
-                <div className="min-w-0">
-                  <h3 className="font-heading text-lg font-semibold text-main truncate">
-                    Erkinov Jasur
-                  </h3>
-                  <p className="text-[12px] text-dim">Frontend Developer</p>
-                  <div className="flex items-center gap-1.5 mt-1.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-500">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    Available
-                  </div>
-                </div>
-              </div>
-
-              <div className="hairline mb-5" />
-
-              <div className="flex flex-wrap gap-1.5 mb-5">
-                {['React', 'Tailwind', 'Framer Motion', 'Vite', 'JavaScript'].map((s) => (
-                  <span key={s} className="chip text-[11px] py-1 px-2.5">{s}</span>
-                ))}
-              </div>
-
-              {/* mini terminal */}
-              <div className="rounded-2xl overflow-hidden" style={{ background: 'var(--field)', border: '1px solid var(--line)' }}>
-                <div className="flex items-center justify-between px-3.5 py-2.5" style={{ borderBottom: '1px solid var(--line)' }}>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500/90" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500/90" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/90" />
-                    <span className="ml-2 text-[10px] font-mono text-dim flex items-center gap-1.5">
-                      <Terminal className="w-3 h-3" />
-                      {t('hero.code_title')}
-                    </span>
-                  </div>
-                  <button onClick={copyCode} className="text-dim hover:text-main transition-colors" title="Copy">
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
-                </div>
-                <pre className="p-3.5 text-[10.5px] sm:text-[11.5px] leading-relaxed font-mono overflow-x-auto text-dim">
-{`const `}<span className="text-indigo-500">developer</span>{` = {
-  name: `}<span className="text-emerald-500">"Erkinov Jasur"</span>{`,
-  role: `}<span className="text-emerald-500">"Frontend Developer"</span>{`,
-  school: `}<span className="text-emerald-500">"Mars IT School"</span>{`,
-  status: `}<span className="text-pink-500">"available"</span>{`
-};`}
-                </pre>
-              </div>
+          {/* Header */}
+          <div
+            className="flex items-center justify-between px-4 py-2.5 border-b select-none"
+            style={{
+              borderColor: 'var(--line)',
+              background: 'var(--surface-2)',
+            }}
+          >
+            {/* Elegant Dots */}
+            <div className="flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#E26D5C] opacity-80" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#D9A877] opacity-80" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#6EB27B] opacity-80" />
             </div>
+
+            {/* Window Tabs */}
+            <div className="flex items-center gap-1 rounded-lg p-0.5 bg-[var(--surface)] border border-[var(--line)]">
+              <button
+                type="button"
+                onClick={() => setActiveTab('code')}
+                className={`flex items-center gap-1.5 rounded-md px-3 py-1 text-[11.5px] font-medium transition-all ${
+                  activeTab === 'code'
+                    ? 'bg-[var(--surface-2)] text-[var(--accent)] font-semibold shadow-xs'
+                    : 'text-dim hover:text-main'
+                }`}
+              >
+                <FileCode className="h-3 w-3" />
+                developer.js
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('json')}
+                className={`flex items-center gap-1.5 rounded-md px-3 py-1 text-[11.5px] font-medium transition-all ${
+                  activeTab === 'json'
+                    ? 'bg-[var(--surface-2)] text-[var(--accent)] font-semibold shadow-xs'
+                    : 'text-dim hover:text-main'
+                }`}
+              >
+                <Braces className="h-3 w-3" />
+                skills.json
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('terminal')}
+                className={`flex items-center gap-1.5 rounded-md px-3 py-1 text-[11.5px] font-medium transition-all ${
+                  activeTab === 'terminal'
+                    ? 'bg-[var(--surface-2)] text-[var(--accent)] font-semibold shadow-xs'
+                    : 'text-dim hover:text-main'
+                }`}
+              >
+                <Terminal className="h-3 w-3" />
+                terminal
+              </button>
+            </div>
+
+            {/* Copy Button */}
+            <button
+              type="button"
+              onClick={() => copyCode(codeSnippets[activeTab])}
+              className="flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-medium text-dim hover:text-main hover:bg-[var(--surface)] transition-colors"
+              title={t('common.copy')}
+            >
+              {copiedCode ? (
+                <>
+                  <Check className="h-3 w-3 text-[var(--accent)]" />
+                  <span className="text-[var(--accent)] font-semibold">{t('common.copied')}</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="h-3 w-3" />
+                  <span className="hidden sm:inline">{t('common.copy')}</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Window Code Content */}
+          <div
+            className="p-5 sm:p-7 overflow-x-auto font-mono text-[13px] sm:text-[13.5px] leading-relaxed"
+            style={{ background: 'var(--surface)' }}
+          >
+            <pre className="text-main">
+              <code>{codeSnippets[activeTab]}</code>
+            </pre>
           </div>
         </motion.div>
-      </motion.div>
 
-      {/* scroll hint */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-7 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 text-dim"
-      >
-        <span className="text-[9px] uppercase tracking-[0.3em] font-medium">Scroll</span>
+        {/* Minimalist Stats Grid */}
         <motion.div
-          animate={{ y: [0, 7, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-[1px] h-7"
-          style={{ background: 'linear-gradient(to bottom, var(--accent), transparent)' }}
-        />
-      </motion.div>
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.52 }}
+          className="mt-8 grid grid-cols-2 gap-3.5 sm:grid-cols-4 max-w-[860px] mx-auto"
+        >
+          {stats.map((stat) => (
+            <div
+              key={stat.id}
+              className="brown-card brown-card-hover p-4 sm:p-5 text-center border"
+              style={{ borderColor: 'var(--line)' }}
+            >
+              <div className="font-heading text-[clamp(1.8rem,3.2vw,2.4rem)] font-extrabold leading-none text-main">
+                {stat.value}
+                <span className="text-[var(--accent)] font-serif-accent ml-0.5">{stat.suffix}</span>
+              </div>
+              <p className="mt-2 text-[11px] font-semibold text-dim uppercase tracking-wider font-mono">
+                {t(`hero.stats.${stat.id}`)}
+              </p>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Minimalist Tech Stack Ribbon */}
+        <div className="marquee mt-12 border-y py-3.5" style={{ borderColor: 'var(--line)' }}>
+          <div className="marquee-track">
+            {[0, 1].map((copy) => (
+              <div
+                key={copy}
+                className="flex items-center gap-8 pr-8"
+                aria-hidden={copy === 1}
+              >
+                {stack.map((item) => (
+                  <span key={item} className="flex items-center gap-8">
+                    <span className="whitespace-nowrap text-[12.5px] font-medium text-dim hover:text-[var(--accent)] transition-colors">
+                      {item}
+                    </span>
+                    <span className="h-1 w-1 shrink-0 rounded-full bg-[var(--accent)] opacity-40" />
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
